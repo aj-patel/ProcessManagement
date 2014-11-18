@@ -1,5 +1,7 @@
 package com.tavant.dao;
 
+import com.tavant.domain.UserDetails;
+
 /**
  * @author connecttoaj
  *This is an interface for User related databse interaction.
