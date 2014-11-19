@@ -24,12 +24,21 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/taskdb" />
 		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="zer0c00l" />
 	</bean>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="datasource"></property>
 	</bean>
 
+	<bean id="userDao" class="com.tavant.dao.impl.UserDAOImpl">
+	</bean>
+	
+	<bean id="userService" class="com.tavant.service.impl.UserServiceImpl">
+	</bean>
+	
+	<bean id="sqlQueries" class="com.tavant.sql.mysql.MySqlQueries">
+	</bean>
+	
 
 </beans>
