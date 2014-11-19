@@ -6,47 +6,37 @@ package com.tavant.domain;
  *Domain class for userdetails.
  */
 public class UserDetails {
+
+	private String userId;
 	
-	private int userId;
+	private String userName;
 	
-	private String firstName;
-	
-	private String lastName;
-	
-	private String email;
+	private String roleId;
 	
 	private String password;
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getRoleId() {
+		return roleId;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getPassword() {
@@ -56,5 +46,5 @@ public class UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 }
