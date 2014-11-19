@@ -4,4 +4,6 @@ public interface SQLQueries {
 
 	public String getAddUserQuery();
 	
+	public String getAddTaskQuery();
+	
 }

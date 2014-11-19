@@ -8,4 +8,8 @@ public class MySqlQueries implements SQLQueries {
 				+ "(uid, uname, rid,password) VALUES (?, ?, ?,?)";
 	}
 
+	public String getAddTaskQuery() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
