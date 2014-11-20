@@ -1,18 +1,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<title>Login</title>
+<title>UserHome</title>
 </head>
 <body>
 	<h3>Login Page</h3>
 	<br />
-	<form:form method="POST" action="admin/login">  
-	Enter User Name:<input type="text" name="username">
+	<form:form method="POST" action="admin/login">  	
+	User Name  :<input type="text" name="username" />
 		<br />
-   	Enter Password :<input type="password" name="password" />
+		<br />	
+   	Password &nbsp &nbsp :<input type="password" name="password" />
 		<br />
-		<input type="submit">
+		<br />
+		<input type="submit" />
 	</form:form>
 </body>
 </html>
-
