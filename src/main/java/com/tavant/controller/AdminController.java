@@ -33,6 +33,15 @@ public class AdminController {
  
 	}
  
+	@RequestMapping(value="/showCreateUser",method = RequestMethod.GET)
+	public String showCreateUserPage(ModelMap model) {
+ 
+		return "createUser";
+ 
+	}
+ 
+	
+	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String userCheck(ModelMap model, HttpServletRequest request) {
 		String name=request.getParameter("username");
@@ -61,7 +70,7 @@ public class AdminController {
 	@RequestMapping(value="/createTask", method = RequestMethod.POST)
 	public String createTask(ModelMap model, HttpServletRequest request) {
 		TaskDetails taskDetails = new TaskDetails();
-		taskDetails.setTaskName("task1");
+		taskDetails.setTaskName(request.getParameter("taskName"));
 		taskDetails.setTaskId(new Long(UniqueID.get()).toString());
 		taskDetails.setStatus("new");
 		taskDetails.setStep("1");

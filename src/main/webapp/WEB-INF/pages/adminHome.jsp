@@ -11,7 +11,7 @@
 	Enter Task Name &nbsp:<input type="text" name="taskName">&nbsp &nbsp 	
       <input type="submit" />
 	<h4>Create User:</h4>
-	<a href="createUser.jsp">Create User</a><br><br>
+	<a href="showCreateUser">Create User</a> 
 	</form:form>
 </body>
 </html>

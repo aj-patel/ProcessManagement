@@ -6,22 +6,21 @@
 <body>
 	<h3>Create User Page</h3>
 	<br >
-<form action="" method="post">  
-Name: &nbsp &nbsp   <input type="text" name="name"/><br/><br/>  
-UserID: &nbsp <input type="number" name="userId"/><br><br/>
+<form action="addUsers" method="post">  
+Name: &nbsp &nbsp   <input type="text" name="userName"/><br/><br/>  
+UserID: &nbsp <input type="text" name="userId"/><br><br/>
 Password:<input type="password" name="password"/><br/><br/>  
-Address:&nbsp <input type="text" name="address"/><br><br/>
 Role:&nbsp &nbsp&nbsp &nbsp
-<select name="Role"><br/>
-Role: <option value="Select">Select------------</option>
-<option value="Developer">Developer</option>
+<select name="role"><br/>
+Role: <option value="Select">Select</option>
+<option value="11">Developer</option>
 <option value="Admin">Admin</option>
 <option value="Bussiness Analyst">BusinessAnalyst</option>
 <option value="QA">QA</option>
 <option value="manager">Manager</option>
 <option value="Team Lead">TeamLead</option>
 </select>
-<input type="submit" value="login"/>  
+<input type="submit" />  
 </form>
 </body>
 </html>
