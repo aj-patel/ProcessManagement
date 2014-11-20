@@ -15,6 +15,22 @@ public class UserDetails {
 	
 	private String password;
 
+	public UserDetails() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public UserDetails(String userId, String userName, String roleId,
+			String password) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.roleId = roleId;
+		this.password = password;
+	}
+
+
+
 	public String getUserId() {
 		return userId;
 	}
