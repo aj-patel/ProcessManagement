@@ -46,12 +46,15 @@ public class AdminController {
 	public String userCheck(ModelMap model, HttpServletRequest request) {
 		String name=request.getParameter("username");
 		String pwd=request.getParameter("password");
-		boolean isValid = userService.validateUserLogin(name, pwd);
-		if(isValid){
+		UserDetails userDetails = userService.validateUserLogin(name, pwd);
+		if(userDetails.getRoleId().equals("0")){
 			model.addAttribute("message", "Successfully logged in.");
 			return "adminHome";
-		}else{
+		}else if(userDetails.getUserId() ==null){
 			model.addAttribute("message", "Username or password is wrong.");
+		}
+		else{
+			return "userHome";
 		}
 		return "admin";
 	}

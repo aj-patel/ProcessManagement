@@ -17,12 +17,8 @@ public class UserServiceImpl implements UserService{
 		
 	}
 	
-	public boolean validateUserLogin(String userName, String password) {
-		boolean isValid = false;
+	public UserDetails validateUserLogin(String userName, String password) {
 		UserDetails userDetails = userDao.getUserDetails(userName, password);
-		if(null != userDetails.getUserId()) {
-			isValid = true;
-		}
-		return isValid;
+		return userDetails;
 	}
 }
