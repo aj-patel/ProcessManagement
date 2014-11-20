@@ -12,4 +12,8 @@ public class MySqlQueries implements SQLQueries {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public String getUserDetailsQuery() {
+		return "SELECT * FROM user WHERE uname = ? AND password = ?";
+	}
 }

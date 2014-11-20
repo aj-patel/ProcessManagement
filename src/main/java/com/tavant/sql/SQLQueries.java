@@ -6,4 +6,6 @@ public interface SQLQueries {
 	
 	public String getAddTaskQuery();
 	
+	public String getUserDetailsQuery();
+	
 }
