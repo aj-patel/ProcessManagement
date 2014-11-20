@@ -6,7 +6,7 @@
 <body>
 	<h3>Login Page</h3>
 	<br />
-	<form:form method="POST" action="admin/login">  	
+	<form:form method="POST" action="login">  	
 	User Name  :<input type="text" name="username" />
 		<br />
 		<br />	
