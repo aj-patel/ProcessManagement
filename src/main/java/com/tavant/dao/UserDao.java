@@ -9,5 +9,7 @@ import com.tavant.domain.UserDetails;
 public interface UserDao {
 	
 	public boolean addUser(final UserDetails userDetails);
+	
+	public UserDetails getUserDetails(String userName, String password);
 
 }

@@ -21,7 +21,6 @@ public class AdminController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String showAdminLoginPage(ModelMap model) {
  
-		model.addAttribute("message", "Spring 3 MVC Hello World");
 		return "admin";
  
 	}
@@ -30,13 +29,14 @@ public class AdminController {
 	public String userCheck(ModelMap model, HttpServletRequest request) {
 		String name=request.getParameter("username");
 		String pwd=request.getParameter("password");
-		if("ajay".equalsIgnoreCase(name)&&"ajay".equalsIgnoreCase(pwd)){
+		boolean isValid = userService.validateUserLogin(name, pwd);
+		if(isValid){
 			model.addAttribute("message", "Successfully logged in.");
-			
+			return "adminHome";
 		}else{
 			model.addAttribute("message", "Username or password is wrong.");
 		}
-		return "adminHome";
+		return "admin";
 	}
 	
 	@RequestMapping(value="/addUsers", method = RequestMethod.POST)
