@@ -4,8 +4,8 @@ public interface SQLQueries {
 
 	public String getAddUserQuery();
 	
-	public String getAddTaskQuery();
-	
 	public String getUserDetailsQuery();
+	
+	public String getCreateTask();
 	
 }

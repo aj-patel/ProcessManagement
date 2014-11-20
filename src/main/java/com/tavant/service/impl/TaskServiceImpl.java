@@ -12,7 +12,7 @@ public class TaskServiceImpl implements TaskService{
 	private TaskDao taskDao;
 	
 	@Override
-	public void addTask(TaskDetails taskDetails) {
+	public void addTask(final TaskDetails taskDetails) {
 		
 		taskDao.addTask(taskDetails);
 		

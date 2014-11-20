@@ -8,12 +8,12 @@ public class MySqlQueries implements SQLQueries {
 				+ "(uid, uname, rid,password) VALUES (?, ?, ?,?)";
 	}
 
-	public String getAddTaskQuery() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public String getUserDetailsQuery() {
 		return "SELECT * FROM user WHERE uname = ? AND password = ?";
+	}
+	
+	@Override
+	public String getCreateTask() {
+		return "insert into task " + "(tname,status,step) values (?,?,?)";
 	}
 }

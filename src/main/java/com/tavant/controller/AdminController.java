@@ -1,5 +1,7 @@
 package com.tavant.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.tavant.domain.TaskDetails;
 import com.tavant.domain.UserDetails;
+import com.tavant.service.TaskService;
 import com.tavant.service.UserService;
+import com.tavant.util.UniqueID;
 
 @Controller
 @RequestMapping("/admin")
@@ -17,6 +22,9 @@ public class AdminController {
 	
 	@Autowired
 	private UserService userService ;
+	
+	@Autowired
+	private TaskService taskService;
  
 	@RequestMapping(method = RequestMethod.GET)
 	public String showAdminLoginPage(ModelMap model) {
@@ -47,6 +55,17 @@ public class AdminController {
 		userDetails.setUserName(request.getParameter("userName"));
 		userDetails.setRoleId(request.getParameter("role"));
 		userService.addUserSerive(userDetails);
+		return "adminHome";
+	}
+	
+	@RequestMapping(value="/createTask", method = RequestMethod.POST)
+	public String createTask(ModelMap model, HttpServletRequest request) {
+		TaskDetails taskDetails = new TaskDetails();
+		taskDetails.setTaskName("task1");
+		taskDetails.setTaskId(new Long(UniqueID.get()).toString());
+		taskDetails.setStatus("new");
+		taskDetails.setStep("1");
+		taskService.addTask(taskDetails);
 		return "adminHome";
 	}
 }
