@@ -1,16 +1,20 @@
 package com.tavant.controller;
 
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.tavant.domain.TaskDetails;
+import com.tavant.domain.TaskProgressDetails;
 import com.tavant.domain.UserDetails;
 import com.tavant.service.TaskService;
 import com.tavant.service.UserService;
@@ -78,6 +82,31 @@ public class AdminController {
 		taskDetails.setStatus("new");
 		taskDetails.setStep("1");
 		taskService.addTask(taskDetails);
+		return "adminHome";
+	}
+	
+	@RequestMapping(value="/getTask", method = RequestMethod.GET)
+	public ModelAndView getTask(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		TaskDetails taskDetails = taskService.getTask(request.getParameter("userId"));
+		  Map<String, Object> myModel = new HashMap<String, Object>();
+	        myModel.put("taskName", "task123");
+	        myModel.put("step", "2");
+
+	        return new ModelAndView("userHome", "model", myModel);
+	}
+	
+	@RequestMapping(value="/completeTask", method = RequestMethod.POST)
+	public String completeTask(ModelMap model, HttpServletRequest request) {
+		String comment = request.getParameter("comment")!=null?request.getParameter("commet"):"";
+		String tpId = request.getParameter("tpId")!=null?request.getParameter("tpId"):"";
+		taskService.completeTask(comment, tpId);
+		return "adminHome";
+	}
+	
+	@RequestMapping(value="/getTaskProgress", method = RequestMethod.POST)
+	public String getTaskProgress(ModelMap model, HttpServletRequest request) {
+		String userId = request.getParameter("userId")!=null?request.getParameter("userId"):"";
+		TaskProgressDetails taskProgressDetails = taskService.getTaskProgress(userId);
 		return "adminHome";
 	}
 }
