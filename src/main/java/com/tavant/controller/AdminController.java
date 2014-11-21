@@ -58,6 +58,7 @@ public class AdminController {
 			model.addAttribute("message", "Username or password is wrong.");
 		}
 		else{
+			model.addAttribute("userId", userDetails.getUserId());
 			return "userHome";
 		}
 		return "admin";
