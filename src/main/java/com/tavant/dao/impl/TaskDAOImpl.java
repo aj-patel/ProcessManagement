@@ -32,9 +32,9 @@ public class TaskDAOImpl implements TaskDao{
 	public TaskDetails getTask(String userId) {
 		Object[] args = new Object[1];
 		args[0] = userId;
-		SqlRowSet setRole = jdbcTemplate.queryForRowSet(sqlQueries.getRoleIdByUser(),args);
 		
-		String roleId = setRole.getString("rid");
+		String roleId = (String)jdbcTemplate.queryForObject(sqlQueries.getRoleIdByUser(), new Object[] {userId},String.class);
+		System.out.println("Role returned is :"+roleId);
 		args[0] = roleId;
 		SqlRowSet setSteps = jdbcTemplate.queryForRowSet(sqlQueries.getStepsByRole(),args);
 		

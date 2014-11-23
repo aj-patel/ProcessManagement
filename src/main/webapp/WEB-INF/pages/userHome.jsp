@@ -7,7 +7,7 @@
 	<h3>User Home Page</h3>
 	<br >	
 	<form:form action="getTask" method="post">
-	<input type="hidden" value='${userId}'/>
+	<input type="hidden" value='${userId}' name="userId"/>
 	<input type="button" value="Get Next"><br><br>
 	<input type="submit" /> 
 	</form:form>
