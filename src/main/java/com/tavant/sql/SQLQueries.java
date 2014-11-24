@@ -1,5 +1,7 @@
 package com.tavant.sql;
 
+import java.util.Date;
+
 public interface SQLQueries {
 
 	public String getAddUserQuery();
@@ -17,5 +19,11 @@ public interface SQLQueries {
 	public String getStepsByRole();
 	
 	public String getTaskProgressByUser();
+	
+	public String getTask(String steps);
+	
+	public String createTaskProgressQuery();
+	
+	public String updateTaskQuery();
 	
 }

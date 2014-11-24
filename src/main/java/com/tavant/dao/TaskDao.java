@@ -9,7 +9,7 @@ public interface TaskDao {
 	
 	public TaskDetails getTask(String userId);
 	
-	public boolean completeStep(String comment, String tpId);
+	public boolean completeStep(String comment, String tId, int step);
 	
 	public TaskProgressDetails getTaskProgress(String userId);
 
