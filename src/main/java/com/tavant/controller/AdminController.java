@@ -61,7 +61,6 @@ public class AdminController {
 	@RequestMapping(value="/addUsers", method = RequestMethod.POST)
 	public String addUsers(ModelMap model, HttpServletRequest request) {
 		UserDetails userDetails = new UserDetails();
-		userDetails.setUserId("userId1");
 		userDetails.setPassword(request.getParameter("password"));
 		userDetails.setUserName(request.getParameter("userName"));
 		userDetails.setRoleId(request.getParameter("role"));

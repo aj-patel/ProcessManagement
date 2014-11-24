@@ -22,7 +22,7 @@ public class UserDAOImpl implements UserDao{
 	
 	public boolean addUser(UserDetails userDetails) {
 		
-		jdbcTemplate.update(sqlQueries.getAddUserQuery(), new Object[]{userDetails.getUserId(),userDetails.getUserName(),userDetails.getRoleId(),userDetails.getPassword()});
+		jdbcTemplate.update(sqlQueries.getAddUserQuery(), new Object[]{userDetails.getUserName(),userDetails.getRoleId(),userDetails.getPassword()});
 		
 		return false;
 	}

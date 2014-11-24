@@ -5,7 +5,7 @@ public class MySqlQueries implements SQLQueries {
 
 	public String getAddUserQuery() {
 		return "INSERT INTO user "
-				+ "(uid, uname, rid,password) VALUES (?, ?, ?,?)";
+				+ "(uname, rid,password) VALUES (?, ?,?)";
 	}
 
 	public String getUserDetailsQuery() {
