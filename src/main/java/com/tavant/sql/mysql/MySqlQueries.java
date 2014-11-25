@@ -9,7 +9,7 @@ public class MySqlQueries implements SQLQueries {
 	}
 
 	public String getUserDetailsQuery() {
-		return "SELECT * FROM user WHERE uname = ? AND password = ?";
+		return "SELECT * FROM user WHERE usr_name = ? AND usr_pass = ?";
 	}
 	
 	@Override

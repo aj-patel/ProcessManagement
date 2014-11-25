@@ -39,7 +39,7 @@ public class UserDAOImpl implements UserDao{
 	
 	private class UserMapper implements RowMapper {
 		public UserDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-			UserDetails userDetails = new UserDetails(rs.getString("uid"), rs.getString("uname"), rs.getString("rid"), rs.getString("password"));
+			UserDetails userDetails = new UserDetails(rs.getString("usr_id"), rs.getString("usr_name"), rs.getString("rol_id"), rs.getString("usr_pass"));
 			return userDetails;
 		}
 	}
