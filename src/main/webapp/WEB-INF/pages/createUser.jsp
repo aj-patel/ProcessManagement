@@ -7,8 +7,7 @@
 	<h3>Create User Page</h3>
 	<br >
 <form action="addUsers" method="post">  
-Name: &nbsp &nbsp   <input type="text" name="userName"/><br/><br/>  
-UserID: &nbsp <input type="text" name="userId"/><br><br/>
+User name: <input type="text" name="userName"/><br/><br/>  
 Password:<input type="password" name="password"/><br/><br/>  
 Role:&nbsp &nbsp&nbsp &nbsp
 <select name="role"><br/>

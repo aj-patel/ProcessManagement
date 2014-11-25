@@ -10,7 +10,7 @@ public class TaskDetails {
 	
 	private String status;
 	
-	private String step;
+	private int step;
 	
 	private Date startDate;
 	
@@ -22,7 +22,7 @@ public class TaskDetails {
 	
 
 	public TaskDetails(String taskId, String taskName, String status,
-			String step, Date startDate, Date endDate) {
+			int step, Date startDate, Date endDate) {
 		super();
 		this.taskId = taskId;
 		this.taskName = taskName;
@@ -58,13 +58,6 @@ public class TaskDetails {
 		this.status = status;
 	}
 
-	public String getStep() {
-		return step;
-	}
-
-	public void setStep(String step) {
-		this.step = step;
-	}
 
 	public Date getStartDate() {
 		return startDate;
@@ -81,6 +74,17 @@ public class TaskDetails {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+
+
+	public int getStep() {
+		return step;
+	}
+
+
+	public void setStep(int step) {
+		this.step = step;
+	}
+	
 	
 	
 	

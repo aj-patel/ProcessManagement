@@ -1,7 +1,8 @@
 package com.tavant.dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,31 +33,58 @@ public class TaskDAOImpl implements TaskDao{
 	public TaskDetails getTask(String userId) {
 		Object[] args = new Object[1];
 		args[0] = userId;
+		List<Map> rows = jdbcTemplate.queryForList(sqlQueries.getTaskProgressByUser(),args);
+		if(null!=rows && rows.size()>0){
+			String tid = null, tname = null, comment;
+			int step=0;
+			for(Map map:rows){
+				tid = (String)map.get("tid");
+				tname = (String) map.get("tname");
+				comment = (String) map.get("comment");
+				step =  (int) map.get("step");
+			}
+			return new TaskDetails(tid, tname,null, new Integer(step),null,null);
+		}
 		
 		String roleId = (String)jdbcTemplate.queryForObject(sqlQueries.getRoleIdByUser(), new Object[] {userId},String.class);
 		System.out.println("Role returned is :"+roleId);
 		args[0] = roleId;
-		SqlRowSet setSteps = jdbcTemplate.queryForRowSet(sqlQueries.getStepsByRole(),args);
 		
-		ResultSet resultSet = (ResultSet)jdbcTemplate.queryForRowSet(sqlQueries.getTaskQuery("1,2,3")); 
-		String tpId = null;
-		String tName = null;
-		int step = 0;
-		try {
-			tpId = resultSet.getString(0);
-			tName = resultSet.getString(1);
-			step = Integer.parseInt(resultSet.getString(2));
-		} catch (SQLException e) {
-			e.printStackTrace();
+		List<Map> listMap = jdbcTemplate.queryForList(sqlQueries.getStepsByRole(), args);
+		String param = "";
+		for(Map map:listMap){
+			param = param+map.get("snumber")+",";
 		}
-
-		return new TaskDetails(tpId, tName,null, new Integer(step).toString(),null,null);
+		param = param.substring(0, param.length()-1);
+		
+		List<Map> listTask = jdbcTemplate.queryForList(sqlQueries.getTask(param)); 
+		String tid = null, tname = null;
+		int step = 0;
+		if(null!=listTask && listTask.size()>0){
+			
+			for(Map map:listTask){
+				tid = (String)map.get("tid");
+				tname = (String) map.get("tname");
+				step = (int) map.get("step");
+			}
+			jdbcTemplate.update(sqlQueries.createTaskProgressQuery(), new Object[]{userId,tid,step,"inprogress",new Date()});
+			
+			return new TaskDetails(tid, tname,null, step,null,null);
+		}
+		return null;
 	}
 
 	
 	@Override
-	public boolean completeStep(String comment, String tpId) {
-		int res = jdbcTemplate.update(sqlQueries.getCompleteTaskQuery(),new Object[]{comment,tpId});
+	public boolean completeStep(String comment, String tId, int step) {
+		int res = jdbcTemplate.update(sqlQueries.getCompleteTaskQuery(),new Object[]{comment,new Date(),tId});
+		if(res==1){
+			++step;
+			int r = jdbcTemplate.update(sqlQueries.updateTaskQuery(),new Object[]{step,tId});
+			if(r==1){
+				return true;
+			}
+		}
 		return false;
 	}
 	

@@ -9,7 +9,7 @@ public interface TaskService {
 	
 	public TaskDetails getTask(String userId);
 	
-	public boolean completeTask(String comment, String tpId);
+	public boolean completeTask(String comment, String tid, int step);
 	
 	public TaskProgressDetails getTaskProgress(String userId);
 	

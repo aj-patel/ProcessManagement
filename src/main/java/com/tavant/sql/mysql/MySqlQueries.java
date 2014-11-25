@@ -5,7 +5,7 @@ public class MySqlQueries implements SQLQueries {
 
 	public String getAddUserQuery() {
 		return "INSERT INTO user "
-				+ "(uid, uname, rid,password) VALUES (?, ?, ?,?)";
+				+ "(uname, rid,password) VALUES (?, ?,?)";
 	}
 
 	public String getUserDetailsQuery() {
@@ -24,7 +24,7 @@ public class MySqlQueries implements SQLQueries {
 	
 	@Override
 	public String getCompleteTaskQuery() {
-		return "UPDATE taskprogress set comment=? WHERE tpid=?";
+		return "UPDATE taskprogress set comment=?, status='completed', edate=? WHERE tid=?";
 	}
 	
 	@Override
@@ -39,6 +39,21 @@ public class MySqlQueries implements SQLQueries {
 
 	@Override
 	public String getTaskProgressByUser() {
-		return "SELECT t.tname, tp.comment, tp.step FROM task t JOIN taskprogress tp ON t.tid = tp.tid WHERE tp.status= 'inprogress' AND tp.uid = ?";
+		return "SELECT t.tid, t.tname, tp.comment, tp.step FROM task t JOIN taskprogress tp ON t.tid = tp.tid WHERE tp.status= 'inprogress' AND tp.uid = ?";
+	}
+
+	@Override
+	public String getTask(String steps) {
+		return "SELECT t.tid, t.tname, t.step FROM task t WHERE t.status='new' AND t.step IN ("+steps+")";
+	}
+
+	@Override
+	public String createTaskProgressQuery() {
+		return "INSERT INTO taskprogress (uid,tid,step,status,sdate) values(?,?,?,?,?)";
+	}
+
+	@Override
+	public String updateTaskQuery() {
+		return "UPDATE task t SET t.status='new', t.step=? WHERE t.tid = ?";
 	}
 }

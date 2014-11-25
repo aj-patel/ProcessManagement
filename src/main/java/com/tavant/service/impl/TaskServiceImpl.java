@@ -25,8 +25,8 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 	@Override
-	public boolean completeTask(String comment, String tpId) {
-		return taskDao.completeStep(comment, tpId);
+	public boolean completeTask(String comment, String tId, int step) {
+		return taskDao.completeStep(comment, tId, step);
 	}
 
 	@Override
