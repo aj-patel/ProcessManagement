@@ -1,6 +1,7 @@
 package com.tavant.sql;
 
-import java.util.Date;
+import java.util.List;
+
 
 public interface SQLQueries {
 
@@ -25,5 +26,9 @@ public interface SQLQueries {
 	public String createTaskProgressQuery();
 	
 	public String updateTaskQuery();
+	
+	public String getTaskIdsForRoleId();
+	
+	public String getTaskListFromProcessInstance();
 	
 }

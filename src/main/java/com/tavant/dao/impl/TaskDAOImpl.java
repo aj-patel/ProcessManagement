@@ -57,8 +57,8 @@ public class TaskDAOImpl implements TaskDao{
 		}
 		param = param.substring(0, param.length()-1);
 		
-		List<Map> listTask = jdbcTemplate.queryForList(sqlQueries.getTask(param)); 
 		String tid = null, tname = null;
+		List<Map> listTask = jdbcTemplate.queryForList(sqlQueries.getTask(param)); 
 		int step = 0;
 		if(null!=listTask && listTask.size()>0){
 			
