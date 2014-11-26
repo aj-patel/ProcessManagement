@@ -1,6 +1,5 @@
 package com.tavant.sql;
 
-import java.util.Date;
 
 public interface SQLQueries {
 
@@ -25,5 +24,13 @@ public interface SQLQueries {
 	public String createTaskProgressQuery();
 	
 	public String updateTaskQuery();
+	
+	public String getProcessInstanceQuery();
+	
+	public String getTaskCompleteQuery();
+	
+	public String getProcessCompleteQuery();
+	
+	public String getEndTaskQuery();
 	
 }

@@ -56,4 +56,24 @@ public class MySqlQueries implements SQLQueries {
 	public String updateTaskQuery() {
 		return "UPDATE task t SET t.status='new', t.step=? WHERE t.tid = ?";
 	}
+
+	@Override
+	public String getProcessInstanceQuery() {
+		return "SELECT * FROM process_instance WHERE pri_id=?";
+	}
+
+	@Override
+	public String getTaskCompleteQuery() {
+		return "INSERT INTO task_history (tsk_id,app_id,usr_id,status,comment,srt_dt,end_dt,prc_id) values(?,?,?,?,?,?,?,?)";
+	}
+
+	@Override
+	public String getProcessCompleteQuery() {
+		return null;
+	}
+
+	@Override
+	public String getEndTaskQuery() {
+		return null;
+	}
 }
