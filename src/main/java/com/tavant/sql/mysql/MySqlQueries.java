@@ -95,8 +95,4 @@ public class MySqlQueries implements SQLQueries {
 		// TODO Auto-generated method stub
 		return "select * from task where tsk_id=?";
 	}
-	@Override
-	public String getFirstTaskQuery(){
-		return "select tsk_id from task where prc_id = ? and srt_and_end = 0";
-	}
 }

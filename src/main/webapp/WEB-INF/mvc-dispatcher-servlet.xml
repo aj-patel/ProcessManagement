@@ -22,7 +22,7 @@
 	<bean id="datasource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/process_db" />
+		<property name="url" value="jdbc:mysql://10.129.164.61:3306/process_db" />
 		<property name="username" value="ajay" />
 		<property name="password" value="ajay" />
 	</bean>
@@ -56,6 +56,12 @@
 	
 	<bean name="simpleJdbcInsert" class="org.springframework.jdbc.core.simple.SimpleJdbcInsert">
     	<constructor-arg><ref bean="datasource"/></constructor-arg>
+    </bean>
+    
+	<bean id="processDao" class="com.tavant.dao.impl.ProcessDAOImpl">
+    </bean>
+       
+    <bean id="processService" class="com.tavant.service.impl.ProcessServiceImpl">
     </bean>
 	
 </beans>
