@@ -19,4 +19,6 @@ public interface TaskDao {
 	public List<ProcessDetails> getProcessList();
 
 	public TaskDetails getTaskDetails(int taskId);
+	
+	public int getFirstTask(int processId);
 }

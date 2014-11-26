@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tavant.domain.ApplicantDetails;
+import com.tavant.domain.ProcessDetails;
+import com.tavant.domain.ProcessInstanceDetails;
 import com.tavant.domain.TaskDetails;
 import com.tavant.domain.TaskProgressDetails;
 import com.tavant.domain.UserDetails;
@@ -31,7 +34,7 @@ public class AdminController {
 	private TaskService taskService;
 	
 	@Autowired
-	private ProcessInstanceService processInstaceService;
+	private ProcessInstanceService processInstanceService;
  
 	@RequestMapping(method = RequestMethod.GET)
 	public String showAdminLoginPage(ModelMap model) {
@@ -72,16 +75,15 @@ public class AdminController {
 		return "adminHome";
 	}
 	
-	/*@RequestMapping(value="/createTask", method = RequestMethod.POST)
-	public String createTask(ModelMap model, HttpServletRequest request) {
-		TaskDetails taskDetails = new TaskDetails();
-		taskDetails.setTaskName(request.getParameter("taskName"));
-		taskDetails.setTaskId(new Long(UniqueID.get()).toString());
-		taskDetails.setStatus("new");
-		taskDetails.setStep(1);
-		taskService.addTask(taskDetails);
+	@RequestMapping(value="/createTask", method = RequestMethod.POST)
+	public String initiateProcess(ModelMap model, HttpServletRequest request) {
+		ApplicantDetails applicantDetails = new ApplicantDetails();
+		applicantDetails.setApplicantName(request.getParameter("appName"));
+		int processId = Integer.parseInt(request.getParameter("processType"));
+		ProcessInstanceDetails processInstanceDetails = new ProcessInstanceDetails(null, null, null, null, processId, null, null);
+		processInstanceService.createProcessInstance(processInstanceDetails, applicantDetails);
 		return "adminHome";
-	}*/
+	}
 	
 	@RequestMapping(value="/getTask", method = RequestMethod.GET)
 	public ModelAndView getTask(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
@@ -90,7 +92,7 @@ public class AdminController {
 		Integer nextTaskId=0;
 		if(roleId !=null){
 			int roleIdInt= Integer.parseInt(roleId);
-			nextTaskId = processInstaceService.getNextTask(roleIdInt);
+			nextTaskId = processInstanceService.getNextTask(roleIdInt);
 		}
 		if(nextTaskId !=null){
 			TaskDetails taskDetails = taskService.getTaskDetails(nextTaskId);

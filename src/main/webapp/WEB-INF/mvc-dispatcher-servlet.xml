@@ -52,5 +52,10 @@
 	<bean id="processInstanceDao" class="com.tavant.dao.impl.ProcessInstanceDAOImpl">
 	</bean>
 	
-	<bean id="processInstaceService" class="com.tavant.service.impl.ProcessInstanceServiceImpl"/>
+	<bean id="processInstanceService" class="com.tavant.service.impl.ProcessInstanceServiceImpl"/>
+	
+	<bean name="simpleJdbcInsert" class="org.springframework.jdbc.core.simple.SimpleJdbcInsert">
+    	<constructor-arg><ref bean="datasource"/></constructor-arg>
+    </bean>
+	
 </beans>

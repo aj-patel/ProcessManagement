@@ -42,5 +42,7 @@ public interface SQLQueries {
 	public String getTaskListFromProcessInstance();
 	
 	public String getTaskDetailsByTaskId();
+	
+	public String getFirstTaskQuery();
 
 }
