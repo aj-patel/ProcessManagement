@@ -136,6 +136,17 @@ public class TaskDAOImpl implements TaskDao{
 		return taskDetails;
 	}
 	
+	@Override
+	public int getFirstTask(int processId){
+		List<Map> rows = jdbcTemplate.queryForList(sqlQueries.getFirstTaskQuery(), new Object[]{processId});
+		if(null!=rows && rows.size()>0){
+			for(Map map : rows){
+				return (int)map.get("tsk_id");
+			}
+		}
+		return -1;
+	}
+	
 	private class UserMapper implements RowMapper {
 		public UserDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
 			UserDetails userDetails = new UserDetails(rs.getString("usr_id"), rs.getString("usr_name"), rs.getString("rol_id"), rs.getString("usr_pass"));

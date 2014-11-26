@@ -3,84 +3,91 @@ package com.tavant.domain;
 
 public class TaskDetails {
 	
-	private int taskId;
 	
-	private int processId;
+	  private Integer tsk_id;
+	  private Integer prc_id;
+	  private String tsk_name;
+	  private String tsk_desc;
+	  private Integer next_task_id;
+	  private Integer srt_and_end;
 	
-	private String taskName;
-	
-	private String taskDescription;
-	
-	private int nextStep;
-	
-	private int startOrend;
-	
-	public TaskDetails() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public TaskDetails(int taskId, int processId, String taskName,
-			String taskDescription, int nextStep, int startOrend) {
+	  
+	  
+	  
+	  public TaskDetails() {
 		super();
-		this.taskId = taskId;
-		this.processId = processId;
-		this.taskName = taskName;
-		this.taskDescription = taskDescription;
-		this.nextStep = nextStep;
-		this.startOrend = startOrend;
 	}
 
 
-
-	public int getTaskId() {
-		return taskId;
+	public TaskDetails(Integer tsk_id, Integer prc_id, String tsk_name,
+			String tsk_desc, Integer next_task_id, Integer srt_and_end) {
+		super();
+		this.tsk_id = tsk_id;
+		this.prc_id = prc_id;
+		this.tsk_name = tsk_name;
+		this.tsk_desc = tsk_desc;
+		this.next_task_id = next_task_id;
+		this.srt_and_end = srt_and_end;
 	}
 
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
+
+	public Integer getTsk_id() {
+		return tsk_id;
 	}
 
-	public int getProcessId() {
-		return processId;
+
+	public void setTsk_id(Integer tsk_id) {
+		this.tsk_id = tsk_id;
 	}
 
-	public void setProcessId(int processId) {
-		this.processId = processId;
+
+	public Integer getPrc_id() {
+		return prc_id;
 	}
 
-	public String getTaskName() {
-		return taskName;
+
+	public void setPrc_id(Integer prc_id) {
+		this.prc_id = prc_id;
 	}
 
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
+
+	public String getTsk_name() {
+		return tsk_name;
 	}
 
-	public String getTaskDescription() {
-		return taskDescription;
+
+	public void setTsk_name(String tsk_name) {
+		this.tsk_name = tsk_name;
 	}
 
-	public void setTaskDescription(String taskDescription) {
-		this.taskDescription = taskDescription;
+
+	public String getTsk_desc() {
+		return tsk_desc;
 	}
 
-	public int getNextStep() {
-		return nextStep;
+
+	public void setTsk_desc(String tsk_desc) {
+		this.tsk_desc = tsk_desc;
 	}
 
-	public void setNextStep(int nextStep) {
-		this.nextStep = nextStep;
+
+	public Integer getNext_task_id() {
+		return next_task_id;
 	}
 
-	public int getStartOrend() {
-		return startOrend;
+
+	public void setNext_task_id(Integer next_task_id) {
+		this.next_task_id = next_task_id;
 	}
 
-	public void setStartOrend(int startOrend) {
-		this.startOrend = startOrend;
+
+	public Integer getSrt_and_end() {
+		return srt_and_end;
 	}
-	
-	
-	
+
+
+	public void setSrt_and_end(Integer srt_and_end) {
+		this.srt_and_end = srt_and_end;
+	}
 	
 }
