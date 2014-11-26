@@ -1,4 +1,6 @@
 package com.tavant.sql.mysql;
+import java.util.List;
+
 import com.tavant.sql.SQLQueries;
 
 public class MySqlQueries implements SQLQueries {
@@ -56,9 +58,18 @@ public class MySqlQueries implements SQLQueries {
 	public String updateTaskQuery() {
 		return "UPDATE task t SET t.status='new', t.step=? WHERE t.tid = ?";
 	}
-	
 	@Override
 	public String getAllProcessListQuery(){
 		return "SELECT p.prc_id, p.prc_name FROM process p";
+	}
+	@Override
+	public String getTaskIdsForRoleId() {
+		// TODO Auto-generated method stub
+		return "select tsk_id from role_task where rol_id = ?";
+	}
+	@Override
+	public String getTaskListFromProcessInstance() {
+		// TODO Auto-generated method stub
+		return "select tsk_id from process_instance where tsk_id in (:taskIds) and usr_id IS NULL;";
 	}
 }
