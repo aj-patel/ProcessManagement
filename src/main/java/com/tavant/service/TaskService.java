@@ -8,14 +8,16 @@ import com.tavant.domain.TaskProgressDetails;
 
 public interface TaskService {
 
-	public void addTask(final TaskDetails taskDetails);
+	/*public void addTask(final TaskDetails taskDetails);
 	
-	public TaskDetails getTask(String userId);
+	public TaskDetails getTask(String userId);*/
 	
 	public boolean completeTask(String comment, String tid, int step);
 	
 	public TaskProgressDetails getTaskProgress(String userId);
 	
 	public List<ProcessDetails> getProcessList();
+	
+	public TaskDetails getTaskDetails(int taskId);
 	
 }

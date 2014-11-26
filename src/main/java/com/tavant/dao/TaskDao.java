@@ -8,9 +8,9 @@ import com.tavant.domain.TaskProgressDetails;
 
 public interface TaskDao {
 	
-	public void addTask(final TaskDetails taskDetails);
+	/*public void addTask(final TaskDetails taskDetails);
 	
-	public TaskDetails getTask(String userId);
+	public TaskDetails getTask(String userId);*/
 	
 	public boolean completeStep(String comment, String tId, int step);
 	
@@ -18,4 +18,5 @@ public interface TaskDao {
 	
 	public List<ProcessDetails> getProcessList();
 
+	public TaskDetails getTaskDetails(int taskId);
 }

@@ -1,6 +1,4 @@
 package com.tavant.sql.mysql;
-import java.util.List;
-
 import com.tavant.sql.SQLQueries;
 
 public class MySqlQueries implements SQLQueries {
@@ -91,5 +89,10 @@ public class MySqlQueries implements SQLQueries {
 	public String getTaskListFromProcessInstance() {
 		// TODO Auto-generated method stub
 		return "select tsk_id from process_instance where tsk_id in (:taskIds) and usr_id IS NULL;";
+	}
+	@Override
+	public String getTaskDetailsByTaskId() {
+		// TODO Auto-generated method stub
+		return "select * from task where tsk_id=?";
 	}
 }

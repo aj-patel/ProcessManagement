@@ -1,45 +1,51 @@
 package com.tavant.domain;
 
-import java.sql.Date;
 
 public class TaskDetails {
-
-	private String taskId;
+	
+	private int taskId;
+	
+	private int processId;
 	
 	private String taskName;
 	
-	private String status;
+	private String taskDescription;
 	
-	private int step;
+	private int nextStep;
 	
-	private Date startDate;
-	
-	private Date endDate;
+	private int startOrend;
 	
 	public TaskDetails() {
 		// TODO Auto-generated constructor stub
 	}
 	
-
-	public TaskDetails(String taskId, String taskName, String status,
-			int step, Date startDate, Date endDate) {
+	public TaskDetails(int taskId, int processId, String taskName,
+			String taskDescription, int nextStep, int startOrend) {
 		super();
 		this.taskId = taskId;
+		this.processId = processId;
 		this.taskName = taskName;
-		this.status = status;
-		this.step = step;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.taskDescription = taskDescription;
+		this.nextStep = nextStep;
+		this.startOrend = startOrend;
 	}
 
 
 
-	public String getTaskId() {
+	public int getTaskId() {
 		return taskId;
 	}
 
-	public void setTaskId(String taskId) {
+	public void setTaskId(int taskId) {
 		this.taskId = taskId;
+	}
+
+	public int getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(int processId) {
+		this.processId = processId;
 	}
 
 	public String getTaskName() {
@@ -50,39 +56,28 @@ public class TaskDetails {
 		this.taskName = taskName;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getTaskDescription() {
+		return taskDescription;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setTaskDescription(String taskDescription) {
+		this.taskDescription = taskDescription;
 	}
 
-
-	public Date getStartDate() {
-		return startDate;
+	public int getNextStep() {
+		return nextStep;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setNextStep(int nextStep) {
+		this.nextStep = nextStep;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public int getStartOrend() {
+		return startOrend;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-
-	public int getStep() {
-		return step;
-	}
-
-
-	public void setStep(int step) {
-		this.step = step;
+	public void setStartOrend(int startOrend) {
+		this.startOrend = startOrend;
 	}
 	
 	

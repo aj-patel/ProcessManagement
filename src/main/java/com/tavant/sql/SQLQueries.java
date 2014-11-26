@@ -40,5 +40,7 @@ public interface SQLQueries {
 	public String getTaskIdsForRoleId();
 
 	public String getTaskListFromProcessInstance();
+	
+	public String getTaskDetailsByTaskId();
 
 }
