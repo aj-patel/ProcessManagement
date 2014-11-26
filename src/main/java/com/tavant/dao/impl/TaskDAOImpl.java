@@ -1,5 +1,6 @@
 package com.tavant.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.tavant.dao.TaskDao;
+import com.tavant.domain.ProcessDetails;
 import com.tavant.domain.TaskDetails;
 import com.tavant.domain.TaskProgressDetails;
 import com.tavant.sql.SQLQueries;
@@ -57,8 +59,8 @@ public class TaskDAOImpl implements TaskDao{
 		}
 		param = param.substring(0, param.length()-1);
 		
-		List<Map> listTask = jdbcTemplate.queryForList(sqlQueries.getTask(param)); 
 		String tid = null, tname = null;
+		List<Map> listTask = jdbcTemplate.queryForList(sqlQueries.getTask(param)); 
 		int step = 0;
 		if(null!=listTask && listTask.size()>0){
 			
@@ -102,5 +104,18 @@ public class TaskDAOImpl implements TaskDao{
 		}else{
 			return null;			
 		}
+	}
+	
+	@Override
+	public List<ProcessDetails> getProcessList(){
+		List<ProcessDetails> processList = new ArrayList<ProcessDetails>();
+		List<Map> rows = jdbcTemplate.queryForList(sqlQueries.getAllProcessListQuery(), new Object[]{});
+		if(null!=rows && rows.size()>0){
+			
+			for(Map map : rows){
+				processList.add(new ProcessDetails((int)map.get("prc_id"), (String)map.get("prc_name"), null));
+			}
+		}
+		return processList;
 	}
 }
