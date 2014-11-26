@@ -16,9 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tavant.domain.TaskDetails;
 import com.tavant.domain.TaskProgressDetails;
 import com.tavant.domain.UserDetails;
+import com.tavant.service.ProcessInstanceService;
 import com.tavant.service.TaskService;
 import com.tavant.service.UserService;
-import com.tavant.util.UniqueID;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,6 +29,9 @@ public class AdminController {
 	
 	@Autowired
 	private TaskService taskService;
+	
+	@Autowired
+	private ProcessInstanceService processInstaceService;
  
 	@RequestMapping(method = RequestMethod.GET)
 	public String showAdminLoginPage(ModelMap model) {
@@ -53,6 +56,7 @@ public class AdminController {
 		}
 		else{
 			model.addAttribute("userId", userDetails.getUserId());
+			request.getSession().setAttribute("roleId", userDetails.getRoleId());
 			return "userHome";
 		}
 		return "userHome";
@@ -68,7 +72,7 @@ public class AdminController {
 		return "adminHome";
 	}
 	
-	@RequestMapping(value="/createTask", method = RequestMethod.POST)
+	/*@RequestMapping(value="/createTask", method = RequestMethod.POST)
 	public String createTask(ModelMap model, HttpServletRequest request) {
 		TaskDetails taskDetails = new TaskDetails();
 		taskDetails.setTaskName(request.getParameter("taskName"));
@@ -77,23 +81,30 @@ public class AdminController {
 		taskDetails.setStep(1);
 		taskService.addTask(taskDetails);
 		return "adminHome";
-	}
+	}*/
 	
 	@RequestMapping(value="/getTask", method = RequestMethod.GET)
 	public ModelAndView getTask(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-		String userId = request.getParameter("userId")!=null?request.getParameter("userId"):"1002";
-		TaskDetails taskDetails = taskService.getTask(userId);
-		Map<String, Object> myModel = new HashMap<String, Object>();
-		if(null!=taskDetails){
-			myModel.put("tid", taskDetails.getTaskId()!=null?taskDetails.getTaskId():"");
-	        myModel.put("taskName", taskDetails.getTaskName()!=null?taskDetails.getTaskName():"");
-	        myModel.put("step", taskDetails.getStep());
-	        return new ModelAndView("userHome", myModel);
-
-		}else{
-			myModel.put("info", "No task available for user..");
+		
+		String roleId = (String)request.getSession().getAttribute("roleId");
+		Integer nextTaskId=0;
+		if(roleId !=null){
+			int roleIdInt= Integer.parseInt(roleId);
+			nextTaskId = processInstaceService.getNextTask(roleIdInt);
 		}
-		return new ModelAndView("userHome", myModel);
+		if(nextTaskId !=null){
+			TaskDetails taskDetails = taskService.getTaskDetails(nextTaskId);
+			
+			if(null!=taskDetails){
+				model.addAttribute("taskName", taskDetails.getTaskName());
+				model.addAttribute("taskDescription",taskDetails.getTaskDescription());
+		        return new ModelAndView("userHome");
+			}
+		}
+		else{
+			model.put("info", "No task available for user..");
+		}
+		return new ModelAndView("userHome");
 		
   	}
 	
