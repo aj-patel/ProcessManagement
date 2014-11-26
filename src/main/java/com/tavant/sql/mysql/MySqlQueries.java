@@ -97,7 +97,7 @@ public class MySqlQueries implements SQLQueries {
 	}
 	@Override
 	public String getFirstTaskQuery(){
-		return "select tsk_id from task where prc_id = ? and srt_and_end = 0";
+		return "select tsk_id, next_task_id from task where prc_id = ? and srt_and_end = 0";
 	}
 	
 	@Override
@@ -108,5 +108,11 @@ public class MySqlQueries implements SQLQueries {
 	@Override
 	public String getTaskQuery() {
 		return "SELECT * FROM task WHERE tsk_id=?";
+	}
+	
+	@Override
+	public String createProcessInstanceQuery(){
+		return "INSERT INTO process_instance (app_id, tsk_id, prc_id, prc_start_dt, next_task_id) values(?, ?, ?, ?, ?)";
+		
 	}
 }

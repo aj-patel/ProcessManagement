@@ -10,6 +10,7 @@ import com.tavant.dao.TaskDao;
 import com.tavant.domain.ApplicantDetails;
 import com.tavant.domain.ProcessDetails;
 import com.tavant.domain.ProcessInstanceDetails;
+import com.tavant.domain.TaskDetails;
 import com.tavant.service.ProcessInstanceService;
 
 public class ProcessInstanceServiceImpl implements ProcessInstanceService {
@@ -38,8 +39,10 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
 	public void createProcessInstance(ProcessInstanceDetails processInstance, ApplicantDetails applicantDetails){
 		int applicantId = processInstanceDao.insertApplicantDetails(applicantDetails);
 		processInstance.setApp_id(applicantId);
-		int taskId = taskDAO.getFirstTask(processInstance.getPrc_id());
-		processInstance.setTsk_id(taskId);
+		TaskDetails taskDetail = taskDAO.getFirstTask(processInstance.getPrc_id());
+		processInstance.setTsk_id(taskDetail.getTsk_id());
+		processInstance.setNext_task_id(taskDetail.getNext_task_id());
+		processInstanceDao.createNewProcessInstance(processInstance);
 	}
 	
 }

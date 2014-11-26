@@ -16,9 +16,7 @@ public interface TaskDao {
 	
 	public TaskProgressDetails getTaskProgress(String userId);
 	
-	public List<ProcessDetails> getProcessList();
-
 	public TaskDetails getTaskDetails(int taskId);
 	
-	public int getFirstTask(int processId);
+	public TaskDetails getFirstTask(int processId);
 }

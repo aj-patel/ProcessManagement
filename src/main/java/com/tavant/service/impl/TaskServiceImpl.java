@@ -38,11 +38,6 @@ public class TaskServiceImpl implements TaskService{
 	}
 	
 	@Override
-	public List<ProcessDetails> getProcessList(){
-		return taskDao.getProcessList();
-	}
-	
-	@Override
 	public TaskDetails getTaskDetails(int taskId) {
 		// TODO Auto-generated method stub
 		return null;

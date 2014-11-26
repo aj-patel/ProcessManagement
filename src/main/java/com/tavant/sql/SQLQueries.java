@@ -49,5 +49,6 @@ public interface SQLQueries {
 	
 	public String getTaskQuery();
 
+	public String createProcessInstanceQuery();
 
 }

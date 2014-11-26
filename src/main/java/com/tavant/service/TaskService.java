@@ -16,8 +16,6 @@ public interface TaskService {
 	
 	public TaskProgressDetails getTaskProgress(String userId);
 	
-	public List<ProcessDetails> getProcessList();
-	
 	public TaskDetails getTaskDetails(int taskId);
 	
 }

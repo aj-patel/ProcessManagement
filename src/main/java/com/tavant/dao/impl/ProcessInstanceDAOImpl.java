@@ -1,6 +1,7 @@
 package com.tavant.dao.impl;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import com.tavant.dao.ProcessInstanceDao;
 import com.tavant.domain.ApplicantDetails;
+import com.tavant.domain.ProcessInstanceDetails;
 import com.tavant.sql.SQLQueries;
 
 public class ProcessInstanceDAOImpl implements ProcessInstanceDao{
@@ -50,6 +52,11 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDao{
    
         Number applicantId = simpleJdbcInsert.executeAndReturnKey(parameters);
         return applicantId.intValue();
+	}
+	
+	@Override
+	public void createNewProcessInstance(ProcessInstanceDetails processInstance){
+		jdbcTemplate.update(sqlQueries.createProcessInstanceQuery(), new Object[]{processInstance.getApp_id(), processInstance.getTsk_id(), processInstance.getPrc_id(), new Date(), processInstance.getNext_task_id()});
 	}
 	
 	private void setTableName(){

@@ -2,7 +2,10 @@ package com.tavant.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -11,6 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import com.tavant.dao.ProcessDao;
+import com.tavant.domain.ProcessDetails;
 import com.tavant.domain.ProcessInstanceDetails;
 import com.tavant.domain.TaskDetails;
 import com.tavant.sql.SQLQueries;
@@ -49,6 +53,19 @@ public class ProcessDAOImpl implements ProcessDao {
 			resProcessHistory = jdbcTemplate.update(sqlQueries.getProcessCompleteQuery(), new Object[]{processInstanceDetails.getPrc_id(), processInstanceDetails.getApp_id(), status,processInstanceDetails.getPrc_start_dt(), new Date() });			
 		}
 	return (resTaskHistory==1&&resProcessInstance==1&&resProcessHistory==1)==true?true:false;	
+	}
+	
+	@Override
+	public List<ProcessDetails> getProcessList(){
+		List<ProcessDetails> processList = new ArrayList<ProcessDetails>();
+		List<Map> rows = jdbcTemplate.queryForList(sqlQueries.getAllProcessListQuery(), new Object[]{});
+		if(null!=rows && rows.size()>0){
+			
+			for(Map map : rows){
+				processList.add(new ProcessDetails((int)map.get("prc_id"), (String)map.get("prc_name"), null));
+			}
+		}
+		return processList;
 	}
 	
 	private class ProcessInstanceMapper implements RowMapper {

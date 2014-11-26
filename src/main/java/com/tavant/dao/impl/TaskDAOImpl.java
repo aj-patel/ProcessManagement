@@ -112,19 +112,6 @@ public class TaskDAOImpl implements TaskDao{
 	}
 	
 	@Override
-	public List<ProcessDetails> getProcessList(){
-		List<ProcessDetails> processList = new ArrayList<ProcessDetails>();
-		List<Map> rows = jdbcTemplate.queryForList(sqlQueries.getAllProcessListQuery(), new Object[]{});
-		if(null!=rows && rows.size()>0){
-			
-			for(Map map : rows){
-				processList.add(new ProcessDetails((int)map.get("prc_id"), (String)map.get("prc_name"), null));
-			}
-		}
-		return processList;
-	}
-	
-	@Override
 	public TaskDetails getTaskDetails(int taskId) {
 		// TODO Auto-generated method stub
 		TaskDetails taskDetails;
@@ -137,14 +124,17 @@ public class TaskDAOImpl implements TaskDao{
 	}
 	
 	@Override
-	public int getFirstTask(int processId){
+	public TaskDetails getFirstTask(int processId){
 		List<Map> rows = jdbcTemplate.queryForList(sqlQueries.getFirstTaskQuery(), new Object[]{processId});
 		if(null!=rows && rows.size()>0){
+			TaskDetails taskdetail = new TaskDetails();
 			for(Map map : rows){
-				return (int)map.get("tsk_id");
+				taskdetail.setTsk_id((int)map.get("tsk_id"));
+				taskdetail.setNext_task_id((int)map.get("next_task_id"));
+				return taskdetail;
 			}
 		}
-		return -1;
+		return null;
 	}
 	
 	private class UserMapper implements RowMapper {
