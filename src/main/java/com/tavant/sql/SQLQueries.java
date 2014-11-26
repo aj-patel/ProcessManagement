@@ -26,4 +26,6 @@ public interface SQLQueries {
 	
 	public String updateTaskQuery();
 	
+	public String getAllProcessListQuery();
+	
 }

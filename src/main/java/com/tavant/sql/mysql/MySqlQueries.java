@@ -56,4 +56,9 @@ public class MySqlQueries implements SQLQueries {
 	public String updateTaskQuery() {
 		return "UPDATE task t SET t.status='new', t.step=? WHERE t.tid = ?";
 	}
+	
+	@Override
+	public String getAllProcessListQuery(){
+		return "SELECT p.prc_id, p.prc_name FROM process p";
+	}
 }
