@@ -1,7 +1,7 @@
 package com.tavant.service.impl;
 
 import java.util.List;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tavant.dao.ProcessInstanceDao;
@@ -25,14 +25,20 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
 	private RoleDao roleDAO;
 	
 	@Override
-	public Integer getNextTask(int roleId) {
+	public Map getNextTask(int roleId) {
 		// TODO Auto-generated method stub
 		List<Integer> taskIds = roleDAO.getTaskIdsForRoleId(roleId);
-		List <Integer> taskIdsFromProcessInstId = processInstanceDao.getTasksIdsFromProcessInst(taskIds);
+		List <Map> taskIdsFromProcessInstId = processInstanceDao.getTasksIdsFromProcessInst(taskIds);
 		if(taskIdsFromProcessInstId != null && taskIdsFromProcessInstId.size() !=0){
 			return taskIdsFromProcessInstId.get(0);
 		}
 		return null;
+	}
+	@Override
+	public void updateProcessInstanceWithUserId(int processInstanceId,
+			int userId) {
+		// TODO Auto-generated method stub
+		processInstanceDao.updateProcessInstanceWithUserId(processInstanceId, userId);
 	}
 	
 	@Override
