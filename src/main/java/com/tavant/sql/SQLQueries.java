@@ -1,7 +1,6 @@
 package com.tavant.sql;
 
 
-import java.util.List;
 
 public interface SQLQueries {
 
@@ -50,5 +49,7 @@ public interface SQLQueries {
 	public String getTaskQuery();
 
 	public String createProcessInstanceQuery();
+	
+	public String updateProcessInstance();
 
 }
