@@ -17,4 +17,6 @@ public interface ProcessInstanceDao {
 	
 	public void createNewProcessInstance(ProcessInstanceDetails processInstance);
 
+	public ProcessInstanceDetails getProcessInstanceForUserId(int userId); 
+
 }
