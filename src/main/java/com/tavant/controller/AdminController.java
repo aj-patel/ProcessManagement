@@ -50,23 +50,26 @@ public class AdminController {
 		return "createUser";
 	}
  
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String userCheck(ModelMap model, HttpServletRequest request) {
-		String name = request.getParameter("username");
-		String pwd = request.getParameter("password");
+		String name=request.getParameter("username");
+		String pwd=request.getParameter("password");
 		if (name.equals("") || pwd.equals("")) {
 			model.addAttribute("error", "Enter username and password");
 			return "admin";
-		} else {
+		} else{
 			UserDetails userDetails = userService.validateUserLogin(name, pwd);
-			if (null != userDetails.getRoleId() && userDetails.getRoleId().equals("0")) {
+			if(null!=userDetails.getRoleId() && userDetails.getRoleId().equals("0")){
 				return "adminHome";
-			} else if (null != userDetails && userDetails.getUserId() == null) {
+			}else if(null!=userDetails && userDetails.getUserId() ==null){
 				model.addAttribute("error", "Username or password is wrong.");
 				return "admin";
-			} else {
+			}else{
+				int userId = Integer.parseInt(userDetails.getUserId());
+				model.put("showGetNext", processInstanceService.isUserFree(userId));
 				model.addAttribute("userId", userDetails.getUserId());
 				request.getSession().setAttribute("roleId", userDetails.getRoleId());
+				request.getSession().setAttribute("userId", userDetails.getUserId());
 				return "userHome";
 			}
 		}
