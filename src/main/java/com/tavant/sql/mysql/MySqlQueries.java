@@ -68,7 +68,7 @@ public class MySqlQueries implements SQLQueries {
 
 	@Override
 	public String getProcessCompleteQuery() {
-		return null;
+		 return "INSERT INTO process_history (prc_id,app_id,status,srt_dt,end_dt) values(?,?,?,?,?)";
 	}
 
 	@Override

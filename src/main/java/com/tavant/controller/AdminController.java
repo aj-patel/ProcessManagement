@@ -133,8 +133,8 @@ public class AdminController {
 	public ModelAndView completeTask(ModelMap model, HttpServletRequest request) {
 		String comment = request.getParameter("comment") != null ? request.getParameter("comment") : "";
 		String status = request.getParameter("status") != null ? request.getParameter("status") : "";
-		String priId = (String)request.getSession().getAttribute("priId");
-		boolean res = processService.updateProcessInstance(priId, status, comment);
+		Integer priId = (Integer)request.getSession().getAttribute("priId");
+		boolean res = processService.updateProcessInstance(priId.toString(), status, comment);
 
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		if (res) {
