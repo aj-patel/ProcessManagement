@@ -13,6 +13,10 @@ public class ProcessInstanceDetails {
 	  Date tsk_start_dt;
 	  Date prc_start_dt;
 	
+	 public ProcessInstanceDetails() {
+		// TODO Auto-generated constructor stub
+	}
+
 	  
 	  public ProcessInstanceDetails(Integer pri_id, Integer app_id,
 			Integer tsk_id, Integer usr_id, Integer prc_id,
