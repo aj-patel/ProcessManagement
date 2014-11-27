@@ -88,7 +88,7 @@ public class MySqlQueries implements SQLQueries {
 	@Override
 	public String getTaskListFromProcessInstance() {
 		// TODO Auto-generated method stub
-		return "select tsk_id from process_instance where tsk_id in (:taskIds) and usr_id IS NULL;";
+		return "select tsk_id, pri_id from process_instance where tsk_id in (:taskIds) and usr_id IS NULL";
 	}
 	@Override
 	public String getTaskDetailsByTaskId() {
