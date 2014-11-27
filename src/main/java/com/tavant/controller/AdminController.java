@@ -41,7 +41,6 @@ public class AdminController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String showAdminLoginPage(ModelMap model) {
-		model.addAttribute("error", "");
 		return "admin";
 	}
  
@@ -82,6 +81,7 @@ public class AdminController {
 		userDetails.setUserName(request.getParameter("userName"));
 		userDetails.setRoleId(request.getParameter("role"));
 		userService.addUserSerive(userDetails);
+		model.addAttribute("message", "New user " + userDetails.getUserName() + " created");
 		return "adminHome";
 	}
 	
