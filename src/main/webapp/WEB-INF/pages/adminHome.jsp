@@ -17,8 +17,10 @@
 	</select>
 	&nbsp &nbsp 	
     <input type="submit" value="Inititate process"/>
+    <font color="red">${error}</font>
 	<h4>Create User:</h4>
 	<a href="showCreateUser">Create User</a> 
 	</form:form>
+	${message}
 </body>
 </html>

@@ -4,9 +4,8 @@ import com.tavant.sql.SQLQueries;
 public class MySqlQueries implements SQLQueries {
 
 	public String getAddUserQuery() {
-		return "INSERT INTO user "
-				+ "(uname, rid,password) VALUES (?, ?,?)";
-	}
+		return "INSERT INTO user (usr_name, rol_id, usr_pass) VALUES (?, ?, ?)";
+	} 
 
 	public String getUserDetailsQuery() {
 		return "SELECT * FROM user WHERE usr_name = ? AND usr_pass = ?";
