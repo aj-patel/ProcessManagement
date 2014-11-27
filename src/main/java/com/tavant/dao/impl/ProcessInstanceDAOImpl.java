@@ -31,17 +31,23 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDao{
 	private boolean isTableNameSet = false;
 	
 	@Override
-	public List<Integer> getTasksIdsFromProcessInst(List taskIds) {
+	public List<Map> getTasksIdsFromProcessInst(List taskIds) {
 		// TODO Auto-generated method stub
 		
 
 		Map<String, List> param = Collections.singletonMap("taskIds",taskIds);        
 		NamedParameterJdbcTemplate  namedParameterJdbcTemplate = new  
 		NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
-		String sql = "SELECT bg.goodsid FROM beiker_goods bg WHERE bg.goodsid in(:goodsid)";
-		List<Integer> list = namedParameterJdbcTemplate.queryForList(sqlQueries.getTaskListFromProcessInstance(), param, Integer.class);
+		List<Map> list = namedParameterJdbcTemplate.queryForList(sqlQueries.getTaskListFromProcessInstance(), param);
 
 		return list;
+	}
+	
+	@Override
+	public void updateProcessInstanceWithUserId(int processInstanceId,
+			int userId) {
+		// TODO Auto-generated method stub
+		jdbcTemplate.update(sqlQueries.updateProcessInstance(), new Object[]{userId,new Date(),processInstanceId});
 	}
 	
 	@Override
