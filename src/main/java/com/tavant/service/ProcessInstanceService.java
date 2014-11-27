@@ -12,5 +12,6 @@ public interface ProcessInstanceService {
 	public void updateProcessInstanceWithUserId(int processInstanceId, int userId);
 	
 	public void createProcessInstance(ProcessInstanceDetails processInstanceDetails, ApplicantDetails applicantDetails);
-
+	
+	public boolean isUserFree(int userId);
 }

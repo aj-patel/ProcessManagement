@@ -72,4 +72,21 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDao{
 			isTableNameSet = true;
 		}
 	}
+	private class ProcessInstanceMapper implements RowMapper {
+		public ProcessInstanceDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ProcessInstanceDetails processInstanceDetails = new ProcessInstanceDetails(rs.getInt("pri_id"), rs.getInt("app_id"), rs.getInt("tsk_id"), rs.getInt("usr_id"),rs.getInt("prc_id"),rs.getInt("next_task_id"),rs.getDate("tsk_start_dt"),rs.getDate("prc_start_dt"));
+			return processInstanceDetails;
+		}
+	}
+	
+	@Override
+	public ProcessInstanceDetails getProcessInstanceForUserId(int userId) {
+		ProcessInstanceDetails processInstanceDetails;
+		try{
+			processInstanceDetails = (ProcessInstanceDetails) jdbcTemplate.queryForObject(sqlQueries.getProcessInstanceForUserId(), new Object[] { userId}, new ProcessInstanceMapper());
+		} catch (EmptyResultDataAccessException e) {
+			processInstanceDetails = new ProcessInstanceDetails();
+		}
+		return processInstanceDetails;
+	}
 }

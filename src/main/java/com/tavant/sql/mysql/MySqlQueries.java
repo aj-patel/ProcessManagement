@@ -118,11 +118,15 @@ public class MySqlQueries implements SQLQueries {
 	@Override
 	public String updateProcessInstance() {
 		// TODO Auto-generated method stub
-		return null;
+		return "UPDATE process_instance SET usr_id=?,tsk_start_dt=? WHERE pri_id=?";
 	}
 	
 	@Override
 	public String deleteProcessInstanceQuery() {
 		return "DELETE FROM `process_instance` WHERE pri_id=?;";
+	}
+	
+	public String getProcessInstanceForUserId() {
+		return "select * from process_instance where usr_id =?";
 	}
 }

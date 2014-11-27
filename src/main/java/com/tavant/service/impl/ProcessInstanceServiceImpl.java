@@ -50,5 +50,9 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
 		processInstance.setNext_task_id(taskDetail.getNext_task_id());
 		processInstanceDao.createNewProcessInstance(processInstance);
 	}
-	
+	@Override
+	public boolean isUserFree(int userId) {
+		Integer processInsUserId = processInstanceDao.getProcessInstanceForUserId(userId).getUsr_id();
+		return ( null == processInsUserId || processInsUserId ==0);
+	}
 }

@@ -54,6 +54,6 @@ public interface SQLQueries {
 	
 	public String deleteProcessInstanceQuery();
 	
-	
+	public String getProcessInstanceForUserId();
 
 }
