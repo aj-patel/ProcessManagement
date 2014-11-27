@@ -15,5 +15,6 @@
 		<br />
 		<input type="submit" />
 	</form:form>
+	 <font color="red">${error}</font>
 </body>
 </html>

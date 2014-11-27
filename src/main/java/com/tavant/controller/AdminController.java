@@ -41,6 +41,7 @@ public class AdminController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String showAdminLoginPage(ModelMap model) {
+		model.addAttribute("error", "");
 		return "admin";
 	}
  
@@ -49,23 +50,26 @@ public class AdminController {
 		return "createUser";
 	}
  
-	@RequestMapping(value="/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String userCheck(ModelMap model, HttpServletRequest request) {
-		String name=request.getParameter("username");
-		String pwd=request.getParameter("password");
-		UserDetails userDetails = userService.validateUserLogin(name, pwd);
-		if(null!=userDetails && userDetails.getRoleId().equals("0")){
-			model.addAttribute("message", "Successfully logged in.");
-			return "adminHome";
-		}else if(null!=userDetails && userDetails.getUserId() ==null){
-			model.addAttribute("message", "Username or password is wrong.");
+		String name = request.getParameter("username");
+		String pwd = request.getParameter("password");
+		if (name.equals("") || pwd.equals("")) {
+			model.addAttribute("error", "Enter username and password");
+			return "admin";
+		} else {
+			UserDetails userDetails = userService.validateUserLogin(name, pwd);
+			if (null != userDetails.getRoleId() && userDetails.getRoleId().equals("0")) {
+				return "adminHome";
+			} else if (null != userDetails && userDetails.getUserId() == null) {
+				model.addAttribute("error", "Username or password is wrong.");
+				return "admin";
+			} else {
+				model.addAttribute("userId", userDetails.getUserId());
+				request.getSession().setAttribute("roleId", userDetails.getRoleId());
+				return "userHome";
+			}
 		}
-		else{
-			model.addAttribute("userId", userDetails.getUserId());
-			request.getSession().setAttribute("roleId", userDetails.getRoleId());
-			return "userHome";
-		}
-		return "userHome";
 	}
 	
 	@RequestMapping(value="/addUsers", method = RequestMethod.POST)
