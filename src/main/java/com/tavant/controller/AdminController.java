@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tavant.domain.ApplicantDetails;
-import com.tavant.domain.ProcessDetails;
 import com.tavant.domain.ProcessInstanceDetails;
 import com.tavant.domain.TaskDetails;
 import com.tavant.domain.TaskProgressDetails;
@@ -98,7 +97,7 @@ public class AdminController {
 		Map nextTaskIdMap =null;
 		if(roleId !=null){
 			int roleIdInt= Integer.parseInt(roleId);
-			nextTaskIdMap = processInstaceService.getNextTask(roleIdInt);
+			nextTaskIdMap = processInstanceService.getNextTask(roleIdInt);
 		}
 		if(userId !=null){
 			userIdInt= Integer.parseInt(userId);
@@ -111,9 +110,9 @@ public class AdminController {
 			
 			
 			if(null!=taskDetails){
-				model.put("taskName", taskDetails.getTaskName());
-				model.put("taskDescription",taskDetails.getTaskDescription());
-				processInstaceService.updateProcessInstanceWithUserId(processId, userIdInt);
+				model.put("taskName", taskDetails.getTsk_name());
+				model.put("taskDescription",taskDetails.getTsk_desc());
+				processInstanceService.updateProcessInstanceWithUserId(processId, userIdInt);
 		        return new ModelAndView("userHome");
 			}
 		}
@@ -121,6 +120,7 @@ public class AdminController {
 			model.put("info", "No task available for user..");
 		}
 		return new ModelAndView("userHome");
+	}
 	
 	@RequestMapping(value="/completeTask", method = RequestMethod.POST)
 	public ModelAndView completeTask(ModelMap model, HttpServletRequest request) {

@@ -1,6 +1,7 @@
 package com.tavant.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tavant.domain.ApplicantDetails;
 import com.tavant.domain.ProcessInstanceDetails;

@@ -51,5 +51,7 @@ public interface SQLQueries {
 	public String createProcessInstanceQuery();
 	
 	public String updateProcessInstance();
+	
+	
 
 }

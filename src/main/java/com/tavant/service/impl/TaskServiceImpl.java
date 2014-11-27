@@ -30,8 +30,4 @@ public class TaskServiceImpl implements TaskService{
 		
 		return taskDao.getTaskDetails(taskId);
 	}
-	@Override
-	public List<ProcessDetails> getProcessList(){
-		return taskDao.getProcessList();
-	}
 }

@@ -1,8 +1,5 @@
 package com.tavant.dao;
 
-import java.util.List;
-
-import com.tavant.domain.ProcessDetails;
 import com.tavant.domain.TaskDetails;
 import com.tavant.domain.TaskProgressDetails;
 
@@ -19,4 +16,6 @@ public interface TaskDao {
 	public TaskDetails getTaskDetails(int taskId);
 	
 	public TaskDetails getFirstTask(int processId);
+	
+	
 }

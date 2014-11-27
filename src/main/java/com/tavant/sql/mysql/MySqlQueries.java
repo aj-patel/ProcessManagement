@@ -115,4 +115,10 @@ public class MySqlQueries implements SQLQueries {
 		return "INSERT INTO process_instance (app_id, tsk_id, prc_id, prc_start_dt, next_task_id) values(?, ?, ?, ?, ?)";
 		
 	}
+	
+	@Override
+	public String updateProcessInstance() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
