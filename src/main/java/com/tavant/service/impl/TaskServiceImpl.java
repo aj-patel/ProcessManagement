@@ -15,18 +15,6 @@ public class TaskServiceImpl implements TaskService{
 	@Autowired
 	private TaskDao taskDao;
 	
-	/*@Override
-	public void addTask(final TaskDetails taskDetails) {
-		
-		taskDao.addTask(taskDetails);
-		
-	}
-	
-	@Override
-	public TaskDetails getTask(String userId) {
-		return taskDao.getTask(userId);
-	}*/
-
 	@Override
 	public boolean completeTask(String comment, String tId, int step) {
 		return taskDao.completeStep(comment, tId, step);
@@ -39,8 +27,11 @@ public class TaskServiceImpl implements TaskService{
 	
 	@Override
 	public TaskDetails getTaskDetails(int taskId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return taskDao.getTaskDetails(taskId);
 	}
-
+	@Override
+	public List<ProcessDetails> getProcessList(){
+		return taskDao.getProcessList();
+	}
 }
