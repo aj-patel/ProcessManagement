@@ -93,17 +93,27 @@ public class AdminController {
 	public ModelAndView getTask(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		
 		String roleId = (String)request.getSession().getAttribute("roleId");
-		Integer nextTaskId=0;
+		String userId = (String)request.getSession().getAttribute("userId");
+		int userIdInt=0;
+		Map nextTaskIdMap =null;
 		if(roleId !=null){
 			int roleIdInt= Integer.parseInt(roleId);
-			nextTaskId = processInstanceService.getNextTask(roleIdInt);
+			nextTaskIdMap = processInstaceService.getNextTask(roleIdInt);
 		}
-		if(nextTaskId !=null){
+		if(userId !=null){
+			userIdInt= Integer.parseInt(userId);
+		}
+		if(nextTaskIdMap !=null){
+			Integer nextTaskId =(Integer) nextTaskIdMap.get("tsk_id");
+			Integer processId = (Integer) nextTaskIdMap.get("pri_id");
+			request.getSession().setAttribute("priId",processId );
 			TaskDetails taskDetails = taskService.getTaskDetails(nextTaskId);
 			
+			
 			if(null!=taskDetails){
-				model.addAttribute("taskName", taskDetails.getTsk_name());
-				model.addAttribute("taskDescription",taskDetails.getTsk_desc());
+				model.put("taskName", taskDetails.getTaskName());
+				model.put("taskDescription",taskDetails.getTaskDescription());
+				processInstaceService.updateProcessInstanceWithUserId(processId, userIdInt);
 		        return new ModelAndView("userHome");
 			}
 		}
@@ -111,8 +121,6 @@ public class AdminController {
 			model.put("info", "No task available for user..");
 		}
 		return new ModelAndView("userHome");
-		
-  	}
 	
 	@RequestMapping(value="/completeTask", method = RequestMethod.POST)
 	public ModelAndView completeTask(ModelMap model, HttpServletRequest request) {
