@@ -15,7 +15,7 @@ import com.tavant.dao.ProcessInstanceDao;
 import com.tavant.domain.ApplicantDetails;
 import com.tavant.domain.ProcessInstanceDetails;
 import com.tavant.sql.SQLQueries;
-
+import org.springframework.dao.EmptyResultDataAccessException;
 public class ProcessInstanceDAOImpl implements ProcessInstanceDao{
 	
 	
