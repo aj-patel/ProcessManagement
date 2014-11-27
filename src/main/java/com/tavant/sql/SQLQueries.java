@@ -52,6 +52,8 @@ public interface SQLQueries {
 	
 	public String updateProcessInstance();
 	
+	public String deleteProcessInstanceQuery();
+	
 	
 
 }

@@ -39,6 +39,7 @@ public class ProcessDAOImpl implements ProcessDao {
 		int resTaskHistory = 0;
 		int resProcessInstance = 0;
 		int resProcessHistory = 0;
+		int resDeleteProcessInstance=0;
 		
 		if(null!=processInstanceDetails){
 			resTaskHistory = jdbcTemplate.update(sqlQueries.getTaskCompleteQuery(), new Object[]{processInstanceDetails.getTsk_id(),processInstanceDetails.getApp_id(),processInstanceDetails.getUsr_id(),status,comment,processInstanceDetails.getTsk_start_dt(),new Date(),processInstanceDetails.getPrc_id()});
@@ -50,9 +51,10 @@ public class ProcessDAOImpl implements ProcessDao {
 				resProcessInstance = jdbcTemplate.update(sqlQueries.getProcessInstanceUpdateQuery(), new Object[]{taskDetails.getTsk_id(),null,new Date(),taskDetails.getNext_task_id(), processInstanceDetails.getPri_id()});
 			}
 		}else{
-			resProcessHistory = jdbcTemplate.update(sqlQueries.getProcessCompleteQuery(), new Object[]{processInstanceDetails.getPrc_id(), processInstanceDetails.getApp_id(), status,processInstanceDetails.getPrc_start_dt(), new Date() });			
+			resProcessHistory = jdbcTemplate.update(sqlQueries.getProcessCompleteQuery(), new Object[]{processInstanceDetails.getPrc_id(), processInstanceDetails.getApp_id(), status,processInstanceDetails.getPrc_start_dt(), new Date() });
+			resDeleteProcessInstance = jdbcTemplate.update(sqlQueries.deleteProcessInstanceQuery(), new Object[]{processInstanceDetails.getPri_id()});
 		}
-	return (resTaskHistory==1&&resProcessInstance==1&&resProcessHistory==1)==true?true:false;	
+	return (resTaskHistory==1&&resProcessInstance==1&&resProcessHistory==1&&resDeleteProcessInstance==1)==true?true:false;	
 	}
 	
 	@Override

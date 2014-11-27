@@ -130,8 +130,7 @@ public class AdminController {
 	public ModelAndView completeTask(ModelMap model, HttpServletRequest request) {
 		String comment = request.getParameter("comment") != null ? request.getParameter("comment") : "";
 		String status = request.getParameter("status") != null ? request.getParameter("status") : "";
-
-		String prcId = request.getParameter("prcId") != null ? request.getParameter("prcId") : "";
+		String prcId = (String)request.getSession().getAttribute("prcId");
 		boolean res = processService.updateProcessInstance(prcId, status, comment);
 
 		Map<String, Object> myModel = new HashMap<String, Object>();

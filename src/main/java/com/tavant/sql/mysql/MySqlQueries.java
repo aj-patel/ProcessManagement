@@ -121,4 +121,9 @@ public class MySqlQueries implements SQLQueries {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public String deleteProcessInstanceQuery() {
+		return "DELETE FROM `process_instance` WHERE pri_id=?;";
+	}
 }
