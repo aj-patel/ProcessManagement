@@ -64,4 +64,6 @@
     <bean id="processService" class="com.tavant.service.impl.ProcessServiceImpl">
     </bean>
 	
+	 <bean id="passwordEncryptionService" class="com.tavant.util.PasswordEncryptionService">
+    </bean>
 </beans>

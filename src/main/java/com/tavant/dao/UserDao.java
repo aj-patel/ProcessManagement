@@ -10,6 +10,6 @@ public interface UserDao {
 	
 	public boolean addUser(final UserDetails userDetails);
 	
-	public UserDetails getUserDetails(String userName, String password);
+	public UserDetails getUserDetails(String userName);
 
 }

@@ -6,61 +6,79 @@ package com.tavant.domain;
  *Domain class for userdetails.
  */
 public class UserDetails {
-
-	private String userId;
 	
-	private String userName;
-	
-	private String roleId;
-	
-	private String password;
+		private String userId;
+		
+		private String userName;
+		
+		private String roleId;
+		
+		private String password;
+		
+		private byte[] encPassword; 
+		
+		private  byte[] salt;
+		
+		public UserDetails() {
+		}
 
-	public UserDetails() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	public UserDetails(String userId, String userName, String roleId,
-			String password) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.roleId = roleId;
-		this.password = password;
-	}
+		public UserDetails(String userId, String userName, String roleId,
+				String password, byte[] encPassword, byte[] salt) {
+			super();
+			this.userId = userId;
+			this.userName = userName;
+			this.roleId = roleId;
+			this.password = password;
+			this.encPassword = encPassword;
+			this.salt = salt;
+		}
 
+		public String getUserId() {
+			return userId;
+		}
 
+		public void setUserId(String userId) {
+			this.userId = userId;
+		}
 
-	public String getUserId() {
-		return userId;
-	}
+		public String getUserName() {
+			return userName;
+		}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+		public void setUserName(String userName) {
+			this.userName = userName;
+		}
 
-	public String getUserName() {
-		return userName;
-	}
+		public String getRoleId() {
+			return roleId;
+		}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+		public void setRoleId(String roleId) {
+			this.roleId = roleId;
+		}
 
-	public String getRoleId() {
-		return roleId;
-	}
+		public String getPassword() {
+			return password;
+		}
 
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
-	}
+		public void setPassword(String password) {
+			this.password = password;
+		}
 
-	public String getPassword() {
-		return password;
-	}
+		public byte[] getEncPassword() {
+			return encPassword;
+		}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
+		public void setEncPassword(byte[] encPassword) {
+			this.encPassword = encPassword;
+		}
+
+		public byte[] getSalt() {
+			return salt;
+		}
+
+		public void setSalt(byte[] salt) {
+			this.salt = salt;
+		}
+
 }

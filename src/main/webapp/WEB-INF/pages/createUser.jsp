@@ -12,14 +12,14 @@ Password:<input type="password" name="password"/><br/><br/>
 Role:&nbsp &nbsp&nbsp &nbsp
 <select name="role"><br/>
 Role: <option value="Select">Select</option>
-<option value="11">Developer</option>
-<option value="Admin">Admin</option>
-<option value="Bussiness Analyst">BusinessAnalyst</option>
-<option value="QA">QA</option>
-<option value="manager">Manager</option>
-<option value="Team Lead">TeamLead</option>
+<option value="0">Admin</option>
+<option value="11">SSE</option>
+<option value="12">TL</option>
+<option value="13">Manager</option>
+<option value="14">HR Mgr</option>
 </select>
 <input type="submit" />  
 </form>
+${message}
 </body>
 </html>

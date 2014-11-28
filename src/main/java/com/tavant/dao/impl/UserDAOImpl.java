@@ -22,24 +22,24 @@ public class UserDAOImpl implements UserDao{
 	
 	public boolean addUser(UserDetails userDetails) {
 		
-		jdbcTemplate.update(sqlQueries.getAddUserQuery(), new Object[]{userDetails.getUserName(),userDetails.getRoleId(),userDetails.getPassword()});
+		int res = jdbcTemplate.update(sqlQueries.getAddUserQuery(), new Object[]{userDetails.getUserName(),userDetails.getRoleId(),userDetails.getEncPassword(),userDetails.getSalt()});
 		
-		return false;
+		return res==1?true:false;
 	}
 
-	public UserDetails getUserDetails(String userName, String password) {
+	public UserDetails getUserDetails(String userName) {
 		UserDetails userDetails;
 		try{
-			userDetails = (UserDetails) jdbcTemplate.queryForObject(sqlQueries.getUserDetailsQuery(), new Object[] { userName, password }, new UserMapper());
+			userDetails = (UserDetails) jdbcTemplate.queryForObject(sqlQueries.getUserDetailsQuery(), new Object[] { userName }, new UserMapper());
 		} catch (EmptyResultDataAccessException e) {
-			userDetails = new UserDetails(null, null, null, null);
+			userDetails = new UserDetails(null, null, null, null, null, null);
 		}
 		return userDetails;
 	}
 	
 	private class UserMapper implements RowMapper {
 		public UserDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-			UserDetails userDetails = new UserDetails(rs.getString("usr_id"), rs.getString("usr_name"), rs.getString("rol_id"), rs.getString("usr_pass"));
+			UserDetails userDetails = new UserDetails(rs.getString("usr_id"), rs.getString("usr_name"), rs.getString("rol_id"),null, rs.getBytes("usr_pass"), rs.getBytes("salt"));
 			return userDetails;
 		}
 	}

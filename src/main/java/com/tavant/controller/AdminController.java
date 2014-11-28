@@ -48,8 +48,14 @@ public class AdminController {
 		userDetails.setPassword(request.getParameter("password"));
 		userDetails.setUserName(request.getParameter("userName"));
 		userDetails.setRoleId(request.getParameter("role"));
-		userService.addUserSerive(userDetails);
-		model.addAttribute("message", "New user " + userDetails.getUserName() + " created");
+		boolean isAdded = userService.addUserSerive(userDetails);
+		if(isAdded){
+			model.addAttribute("message", "New user " + userDetails.getUserName() + " created");
+		}else{
+			model.addAttribute("message", "User " + userDetails.getUserName() + " already exist");
+			return "createUser";
+		}
+		
 		return "adminHome";
 	}
 	
