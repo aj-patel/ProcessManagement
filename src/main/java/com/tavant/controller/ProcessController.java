@@ -70,12 +70,14 @@ public class ProcessController {
 		String comment = request.getParameter("comment") != null ? request.getParameter("comment") : "";
 		String status = request.getParameter("status") != null ? request.getParameter("status") : "";
 		Integer priId = (Integer)request.getSession().getAttribute("priId");
-		boolean res = processService.updateProcessInstance(priId.toString(), status, comment);
-
 		Map<String, Object> myModel = new HashMap<String, Object>();
+		if(null!=priId){
+		boolean res = processService.updateProcessInstance(priId.toString(), status, comment);
 		if (res) {
 			myModel.put("info", "Task task completed successfully...");
 		}
-		return new ModelAndView("userHome", myModel);
-	}
+		}else{
+			myModel.put("info", "No task to complete...");
+		}
+		return new ModelAndView("userHome", myModel);}
 }
