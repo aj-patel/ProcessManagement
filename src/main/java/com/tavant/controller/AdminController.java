@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tavant.domain.ApplicantDetails;
 import com.tavant.domain.ProcessInstanceDetails;
 import com.tavant.domain.TaskDetails;
-import com.tavant.domain.TaskProgressDetails;
 import com.tavant.domain.UserDetails;
 import com.tavant.service.ProcessInstanceService;
 import com.tavant.service.ProcessService;
@@ -143,10 +142,4 @@ public class AdminController {
 		return new ModelAndView("userHome", myModel);
 	}
 	
-	@RequestMapping(value="/getTaskProgress", method = RequestMethod.POST)
-	public String getTaskProgress(ModelMap model, HttpServletRequest request) {
-		String userId = request.getParameter("userId")!=null?request.getParameter("userId"):"";
-		TaskProgressDetails taskProgressDetails = taskService.getTaskProgress(userId);
-		return "adminHome";
-	}
 }

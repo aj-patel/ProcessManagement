@@ -10,8 +10,6 @@ public interface SQLQueries {
 	
 	public String getCreateTask();
 	
-	public String getTaskQuery(String steps);
-	
 	public String getCompleteTaskQuery();
 	
 	public String getRoleIdByUser();
@@ -19,8 +17,6 @@ public interface SQLQueries {
 	public String getStepsByRole();
 	
 	public String getTaskProgressByUser();
-	
-	public String getTask(String steps);
 	
 	public String createTaskProgressQuery();
 	

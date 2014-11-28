@@ -17,11 +17,6 @@ public class MySqlQueries implements SQLQueries {
 	}
 	
 	@Override
-	public String getTaskQuery(String steps) {
-		return "SELECT tp.tpid, t.tname, tp.step FROM taskprogress tp JOIN task t ON tp.tid = t.tid WHERE tp.status='completed' AND tp.step IN ("+steps+")";
-	}
-	
-	@Override
 	public String getCompleteTaskQuery() {
 		return "UPDATE taskprogress set comment=?, status='completed', edate=? WHERE tid=?";
 	}
@@ -39,11 +34,6 @@ public class MySqlQueries implements SQLQueries {
 	@Override
 	public String getTaskProgressByUser() {
 		return "SELECT t.tid, t.tname, tp.comment, tp.step FROM task t JOIN taskprogress tp ON t.tid = tp.tid WHERE tp.status= 'inprogress' AND tp.uid = ?";
-	}
-
-	@Override
-	public String getTask(String steps) {
-		return "SELECT t.tid, t.tname, t.step FROM task t WHERE t.status='new' AND t.step IN ("+steps+")";
 	}
 
 	@Override
