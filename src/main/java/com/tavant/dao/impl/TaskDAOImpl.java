@@ -66,13 +66,6 @@ public class TaskDAOImpl implements TaskDao{
 		return null;
 	}
 	
-	private class UserMapper implements RowMapper {
-		public UserDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-			UserDetails userDetails = new UserDetails(rs.getString("usr_id"), rs.getString("usr_name"), rs.getString("rol_id"), rs.getString("usr_pass"));
-			return userDetails;
-		}
-	}
-	
 	private class TaskMapper implements RowMapper {
 		public TaskDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
 			TaskDetails taskDetails = new TaskDetails(rs.getInt("tsk_id"),rs.getInt("prc_id"),rs.getString("tsk_name"),rs.getString("tsk_desc"),rs.getInt("next_task_id"),rs.getInt("srt_and_end"));
