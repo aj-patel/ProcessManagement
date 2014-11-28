@@ -8,17 +8,7 @@ public interface SQLQueries {
 	
 	public String getUserDetailsQuery();
 	
-	public String getCreateTask();
-	
 	public String getCompleteTaskQuery();
-	
-	public String getRoleIdByUser();
-	
-	public String getStepsByRole();
-	
-	public String getTaskProgressByUser();
-	
-	public String createTaskProgressQuery();
 	
 	public String updateTaskQuery();
 	
@@ -27,8 +17,6 @@ public interface SQLQueries {
 	public String getTaskCompleteQuery();
 	
 	public String getProcessCompleteQuery();
-	
-	public String getEndTaskQuery();
 	
 	public String getAllProcessListQuery();
 

@@ -11,36 +11,12 @@ public class MySqlQueries implements SQLQueries {
 		return "SELECT * FROM user WHERE usr_name = ? AND usr_pass = ?";
 	}
 	
-	@Override
-	public String getCreateTask() {
-		return "insert into task " + "(tname,status,step) values (?,?,?)";
-	}
 	
 	@Override
 	public String getCompleteTaskQuery() {
 		return "UPDATE taskprogress set comment=?, status='completed', edate=? WHERE tid=?";
 	}
 	
-	@Override
-	public String getRoleIdByUser() {
-		return "SELECT rid FROM user WHERE uid=?";
-	}
-	
-	@Override
-	public String getStepsByRole() {
-		return "SELECT snumber FROM step WHERE rid=?";
-	}
-
-	@Override
-	public String getTaskProgressByUser() {
-		return "SELECT t.tid, t.tname, tp.comment, tp.step FROM task t JOIN taskprogress tp ON t.tid = tp.tid WHERE tp.status= 'inprogress' AND tp.uid = ?";
-	}
-
-	@Override
-	public String createTaskProgressQuery() {
-		return "INSERT INTO taskprogress (uid,tid,step,status,sdate) values(?,?,?,?,?)";
-	}
-
 	@Override
 	public String updateTaskQuery() {
 		return "UPDATE task t SET t.status='new', t.step=? WHERE t.tid = ?";
@@ -61,10 +37,6 @@ public class MySqlQueries implements SQLQueries {
 		 return "INSERT INTO process_history (prc_id,app_id,status,srt_dt,end_dt) values(?,?,?,?,?)";
 	}
 
-	@Override
-	public String getEndTaskQuery() {
-		return null;
-	}
 	@Override
 	public String getAllProcessListQuery(){
 		return "SELECT p.prc_id, p.prc_name FROM process p";
