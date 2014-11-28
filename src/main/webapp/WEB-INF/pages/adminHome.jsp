@@ -6,7 +6,7 @@
 <body>
 	<h3>Admin Home Page</h3>
 		
-	<form:form action="createTask">
+	<form:form action="/ProcessManagement/admin/createTask">
 	<h4>Start Process:</h4>
 	Applicant Name &nbsp:
 	<input type="text" name="appName">&nbsp &nbsp

@@ -6,7 +6,7 @@
 <body>
 	<h3>Create User Page</h3>
 	<br >
-<form action="addUsers" method="post">  
+<form action="/ProcessManagement/admin/addUsers" method="post">  
 User name: <input type="text" name="userName"/><br/><br/>  
 Password:<input type="password" name="password"/><br/><br/>  
 Role:&nbsp &nbsp&nbsp &nbsp

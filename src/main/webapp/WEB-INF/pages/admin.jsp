@@ -6,7 +6,7 @@
 <body>
 	<h3>Login Page</h3>
 	<br />
-	<form:form method="POST" action="login">  	
+	<form:form method="POST" action="home">  	
 	User Name  :<input type="text" name="username" />
 		<br />
 		<br />	
