@@ -33,6 +33,12 @@
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-web</artifactId>
 		<version>${spring.version}</version>
+		<exclusions>
+			<exclusion>
+				<artifactId>commons-logging</artifactId>
+				<groupId>commons-logging</groupId>
+			</exclusion>
+		</exclusions>
 	</dependency>
 
 	<dependency>
@@ -70,7 +76,13 @@
               <groupId>org.springframework</groupId>
               <artifactId>spring-jdbc</artifactId>
               <version>2.5.4</version>
-    </dependency>
+              <exclusions>
+			<exclusion>
+			<artifactId>commons-logging</artifactId>
+			<groupId>commons-logging</groupId>
+			</exclusion>
+		</exclusions>
+    	</dependency>
   </dependencies>
   <build>
     <finalName>ProcessManagement</finalName>
