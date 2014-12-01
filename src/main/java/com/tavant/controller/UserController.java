@@ -55,6 +55,7 @@ public class UserController {
 				if(processInstanceDetails.getTsk_id() != null && processInstanceDetails.getTsk_id() !=0){
 					TaskDetails taskDetails = taskService.getTaskDetails(processInstanceDetails.getTsk_id());
 					model.addAttribute("taskDetails", taskDetails);
+					request.getSession().setAttribute("priId",processInstanceDetails.getPri_id());
 					
 				}
 				model.addAttribute("userId", userDetails.getUserId());
