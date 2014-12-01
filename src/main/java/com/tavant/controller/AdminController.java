@@ -48,6 +48,7 @@ public class AdminController {
 		userDetails.setPassword(request.getParameter("password"));
 		userDetails.setUserName(request.getParameter("userName"));
 		userDetails.setRoleId(request.getParameter("role"));
+
 		
 		if(!validateUserName(request.getParameter("userName"))){
 			model.addAttribute("message", "Enter user name..");
