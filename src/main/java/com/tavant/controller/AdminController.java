@@ -48,23 +48,7 @@ public class AdminController {
 		userDetails.setPassword(request.getParameter("password"));
 		userDetails.setUserName(request.getParameter("userName"));
 		userDetails.setRoleId(request.getParameter("role"));
-
-		
-		if(!validateUserName(request.getParameter("userName"))){
-			model.addAttribute("message", "Enter user name..");
-			return "createUser";
-		}
-		if(!validatePassword(request.getParameter("password"))){
-			model.addAttribute("message", "Enter password");
-			return "createUser";
-		}
-		if(!validateRole(request.getParameter("role"))){
-			model.addAttribute("message", "Select role");
-			return "createUser";
-		}
-		
 		boolean isAdded = userService.addUserSerive(userDetails);
-		
 		if(isAdded){
 			model.addAttribute("message", "New user " + userDetails.getUserName() + " created");
 		}else{
@@ -82,33 +66,7 @@ public class AdminController {
 		int processId = Integer.parseInt(request.getParameter("processType"));
 		ProcessInstanceDetails processInstanceDetails = new ProcessInstanceDetails(null, null, null, null, processId, null, null, null);
 		processInstanceService.createProcessInstance(processInstanceDetails, applicantDetails);
+		model.addAttribute("message", "New process for " + applicantDetails.getApplicantName() + " created");
 		return "adminHome";
 	}
-	
-	
-	private boolean validateUserName(String username){
-		if(null!=username && username.length()>0){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	private boolean validatePassword(String password){
-		if(null!=password && password.length()>0){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	private boolean validateRole(String role){
-		if(null!=role && role.length()>0){
-			return true;
-		}else{
-			return false;
-		}
-	}
-		
-	
 }

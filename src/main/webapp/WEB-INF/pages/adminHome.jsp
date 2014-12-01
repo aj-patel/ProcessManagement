@@ -1,12 +1,28 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
+<script>
+	function validate_fields() {
+		var empt = document.forms["adminForm"]["appName"].value;  
+		if (empt == "")  
+		{  
+			document.getElementById("errorMessage").innerHTML = "Please enter the applicant name";
+			return false;  
+		} else if (document.forms["adminForm"]["processType"].value == 'default'){
+			document.getElementById("errorMessage").innerHTML = "Please select the process type";
+			return false; 
+		} else {
+			document.getElementById("errorMessage").innerHTML = "";
+			return true;
+		}
+	}
+</script>
 <title>UserHome</title>
 </head>
 <body>
 	<h3>Admin Home Page</h3>
 		
-	<form:form action="/ProcessManagement/admin/createTask">
+	<form:form name="adminForm" action="/ProcessManagement/admin/createTask" onsubmit= "return validate_fields()">
 	<h4>Start Process:</h4>
 	Applicant Name &nbsp:
 	<input type="text" name="appName">&nbsp &nbsp
@@ -17,7 +33,8 @@
 	</select>
 	&nbsp &nbsp 	
     <input type="submit" value="Inititate process"/>
-    <font color="red">${error}</font>
+    <br/><br/>
+    <font id="errorMessage" color="red"></font>
 	<h4>Create User:</h4>
 	<a href="/ProcessManagement/admin/showCreateUser">Create User</a> 
 	</form:form>
