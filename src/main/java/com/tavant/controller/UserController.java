@@ -8,6 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.tavant.domain.ProcessInstanceDetails;
+import com.tavant.domain.TaskDetails;
 import com.tavant.domain.UserDetails;
 import com.tavant.service.ProcessInstanceService;
 import com.tavant.service.TaskService;
@@ -47,7 +49,14 @@ public class UserController {
 				return "admin";
 			}else{
 				int userId = Integer.parseInt(userDetails.getUserId());
-				model.put("showGetNext", processInstanceService.isUserFree(userId));
+				ProcessInstanceDetails processInstanceDetails = processInstanceService.isUserFree(userId);
+				boolean showGetNext = processInstanceDetails != null && processInstanceDetails.getUsr_id() != null && processInstanceDetails.getTsk_id() !=0;
+				model.put("showGetNext", showGetNext);
+				if(processInstanceDetails.getTsk_id() != null && processInstanceDetails.getTsk_id() !=0){
+					TaskDetails taskDetails = taskService.getTaskDetails(processInstanceDetails.getTsk_id());
+					model.addAttribute("taskDetails", taskDetails);
+					
+				}
 				model.addAttribute("userId", userDetails.getUserId());
 				request.getSession().setAttribute("roleId", userDetails.getRoleId());
 				request.getSession().setAttribute("userId", userDetails.getUserId());

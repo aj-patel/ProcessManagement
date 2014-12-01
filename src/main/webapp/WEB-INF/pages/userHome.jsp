@@ -14,8 +14,8 @@
        <input type="hidden" value="${userId}" name="userId"/>
        <input type="hidden" value="${tid}" name="tid"/>
        <input type="button" value="Get Next" onclick="window.location.href='/ProcessManagement/process/getTask'"><br><br>
-       Task Name &nbsp &nbsp &nbsp ${taskName}<br><br>       
-       Task Description: ${taskDescription}<br ><br>
+       Task Name &nbsp &nbsp &nbsp ${taskDetails.tsk_name}<br><br>       
+       Task Description: ${taskDetails.tsk_desc}<br ><br>
          Status:<br>
         <input type="radio" name="Status" value="Approved">Approved
        <input type="radio" name="Status" value="Disapproved">Disapproved<br><br>
