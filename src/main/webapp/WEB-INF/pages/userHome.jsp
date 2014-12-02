@@ -17,7 +17,7 @@
        Task Name &nbsp &nbsp &nbsp ${taskDetails.tsk_name}<br><br>       
        Task Description: ${taskDetails.tsk_desc}<br ><br>
          Status:<br>
-        <input type="radio" name="status" value="Approved">Approved
+        <input type="radio" name="status" value="Approved" checked="checked">Approved
        <input type="radio" name="status" value="Disapproved">Disapproved<br><br>
         User Comment :<input type="text" name="comment" /><br><br>
        <input type="submit" value="done" /> 
