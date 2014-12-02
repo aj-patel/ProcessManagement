@@ -32,6 +32,7 @@ public class ProcessDAOImpl implements ProcessDao {
 	
 	public boolean updateProcessInstance(String prcId,String status, String comment){
 		ProcessInstanceDetails processInstanceDetails=null;
+		
 		try{
 			processInstanceDetails = (ProcessInstanceDetails) jdbcTemplate.queryForObject(sqlQueries.getProcessInstanceQuery(), new Object[] { prcId }, new ProcessInstanceMapper());
 		} catch (EmptyResultDataAccessException e) {
@@ -41,9 +42,9 @@ public class ProcessDAOImpl implements ProcessDao {
 		int resProcessHistory = 0;
 		int resDeleteProcessInstance=0;
 		
-		if(null!=processInstanceDetails){
+		if(null!=processInstanceDetails && processInstanceDetails.getUsr_id()!=null &&  processInstanceDetails.getUsr_id()>0){
 			resTaskHistory = jdbcTemplate.update(sqlQueries.getTaskCompleteQuery(), new Object[]{processInstanceDetails.getTsk_id(),processInstanceDetails.getApp_id(),processInstanceDetails.getUsr_id(),status,comment,processInstanceDetails.getTsk_start_dt(),new Date(),processInstanceDetails.getPrc_id()});
-		}
+		
 
 		if(null!=processInstanceDetails.getNext_task_id() && processInstanceDetails.getNext_task_id()>0){
 			TaskDetails taskDetails = (TaskDetails) jdbcTemplate.queryForObject(sqlQueries.getTaskQuery(), new Object[] { processInstanceDetails.getNext_task_id()}, new TaskDetailsMapper());
@@ -53,6 +54,7 @@ public class ProcessDAOImpl implements ProcessDao {
 		}else{
 			resProcessHistory = jdbcTemplate.update(sqlQueries.getProcessCompleteQuery(), new Object[]{processInstanceDetails.getPrc_id(), processInstanceDetails.getApp_id(), status,processInstanceDetails.getPrc_start_dt(), new Date() });
 			resDeleteProcessInstance = jdbcTemplate.update(sqlQueries.deleteProcessInstanceQuery(), new Object[]{processInstanceDetails.getPri_id()});
+		}
 		}
 	return (resTaskHistory==1&&resProcessInstance==1&&resProcessHistory==1&&resDeleteProcessInstance==1)==true?true:false;	
 	}
