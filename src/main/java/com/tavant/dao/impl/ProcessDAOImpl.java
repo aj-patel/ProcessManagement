@@ -2,6 +2,7 @@ package com.tavant.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ public class ProcessDAOImpl implements ProcessDao {
 		int resDeleteProcessInstance=0;
 		
 		if(null!=processInstanceDetails && processInstanceDetails.getUsr_id()!=null &&  processInstanceDetails.getUsr_id()>0){
-			resTaskHistory = jdbcTemplate.update(sqlQueries.getTaskCompleteQuery(), new Object[]{processInstanceDetails.getTsk_id(),processInstanceDetails.getApp_id(),processInstanceDetails.getUsr_id(),status,comment,processInstanceDetails.getTsk_start_dt(),new Date(),processInstanceDetails.getPrc_id()});
+			resTaskHistory = jdbcTemplate.update(sqlQueries.getTaskCompleteQuery(), new Object[]{processInstanceDetails.getTsk_id(),processInstanceDetails.getApp_id(),processInstanceDetails.getUsr_id(),status,comment,new Timestamp(processInstanceDetails.getTsk_start_dt().getTime()),new Date(),processInstanceDetails.getPrc_id()});
 		
 
 		if(null!=processInstanceDetails.getNext_task_id() && processInstanceDetails.getNext_task_id()>0){
@@ -52,7 +53,7 @@ public class ProcessDAOImpl implements ProcessDao {
 				resProcessInstance = jdbcTemplate.update(sqlQueries.getProcessInstanceUpdateQuery(), new Object[]{taskDetails.getTsk_id(),null,new Date(),taskDetails.getNext_task_id(), processInstanceDetails.getPri_id()});
 			}
 		}else{
-			resProcessHistory = jdbcTemplate.update(sqlQueries.getProcessCompleteQuery(), new Object[]{processInstanceDetails.getPrc_id(), processInstanceDetails.getApp_id(), status,processInstanceDetails.getPrc_start_dt(), new Date() });
+			resProcessHistory = jdbcTemplate.update(sqlQueries.getProcessCompleteQuery(), new Object[]{processInstanceDetails.getPrc_id(), processInstanceDetails.getApp_id(), status,new Timestamp(processInstanceDetails.getPrc_start_dt().getTime()), new Date() });
 			resDeleteProcessInstance = jdbcTemplate.update(sqlQueries.deleteProcessInstanceQuery(), new Object[]{processInstanceDetails.getPri_id()});
 		}
 		}
@@ -74,7 +75,7 @@ public class ProcessDAOImpl implements ProcessDao {
 	
 	private class ProcessInstanceMapper implements RowMapper {
 		public ProcessInstanceDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
-			ProcessInstanceDetails processInstanceDetails = new ProcessInstanceDetails(rs.getInt("pri_id"),rs.getInt("app_id"),rs.getInt("tsk_id"),rs.getInt("usr_id"),rs.getInt("prc_id"),rs.getInt("next_task_id"),rs.getDate("tsk_start_dt"), rs.getDate("prc_start_dt"));
+			ProcessInstanceDetails processInstanceDetails = new ProcessInstanceDetails(rs.getInt("pri_id"),rs.getInt("app_id"),rs.getInt("tsk_id"),rs.getInt("usr_id"),rs.getInt("prc_id"),rs.getInt("next_task_id"),rs.getTimestamp("tsk_start_dt"), rs.getTimestamp("prc_start_dt"));
 			return processInstanceDetails;
 		}
 	}
