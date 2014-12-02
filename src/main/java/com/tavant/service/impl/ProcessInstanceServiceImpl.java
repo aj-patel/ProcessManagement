@@ -51,8 +51,7 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
 		processInstanceDao.createNewProcessInstance(processInstance);
 	}
 	@Override
-	public boolean isUserFree(int userId) {
-		Integer processInsUserId = processInstanceDao.getProcessInstanceForUserId(userId).getUsr_id();
-		return ( null == processInsUserId || processInsUserId ==0);
+	public ProcessInstanceDetails isUserFree(int userId) {
+		return processInstanceDao.getProcessInstanceForUserId(userId);
 	}
 }

@@ -20,6 +20,6 @@ Role: <option value="">Select</option>
 </select>
 <input type="submit" />  
 </form>
-${message}
+<font color="red">${message}</font>
 </body>
 </html>
