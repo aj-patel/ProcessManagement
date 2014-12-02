@@ -53,10 +53,7 @@ public class ProcessController {
 			
 			
 			if(null!=taskDetails){
-				model.put("taskName", taskDetails.getTsk_name());
-				model.put("taskDescription",taskDetails.getTsk_desc());
-				model.put("isGetNext","disable");
-				
+				model.addAttribute("taskDetails", taskDetails);
 				processInstanceService.updateProcessInstanceWithUserId(processId, userIdInt);
 		        return new ModelAndView("userHome");
 			}
