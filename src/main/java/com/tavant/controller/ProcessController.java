@@ -55,6 +55,8 @@ public class ProcessController {
 			if(null!=taskDetails){
 				model.put("taskName", taskDetails.getTsk_name());
 				model.put("taskDescription",taskDetails.getTsk_desc());
+				model.put("isGetNext","disable");
+				
 				processInstanceService.updateProcessInstanceWithUserId(processId, userIdInt);
 		        return new ModelAndView("userHome");
 			}
@@ -71,11 +73,14 @@ public class ProcessController {
 		String status = request.getParameter("status") != null ? request.getParameter("status") : "";
 		Integer priId = (Integer)request.getSession().getAttribute("priId");
 		Map<String, Object> myModel = new HashMap<String, Object>();
+		boolean res=false;
 		if(null!=priId){
-		boolean res = processService.updateProcessInstance(priId.toString(), status, comment);
-		if (res) {
-			myModel.put("info", "Task task completed successfully...");
-		}
+		 res = processService.updateProcessInstance(priId.toString(), status, comment);
+			if (res) {
+				myModel.put("info", "Task completed successfully...");
+			}else{
+				myModel.put("info", "Task not completed successfully...");
+			}
 		}else{
 			myModel.put("info", "No task to complete...");
 		}
