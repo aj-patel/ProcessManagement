@@ -18,6 +18,7 @@ import com.tavant.dao.ProcessDao;
 import com.tavant.domain.ProcessDetails;
 import com.tavant.domain.ProcessInstanceDetails;
 import com.tavant.domain.TaskDetails;
+import com.tavant.exception.ResourceNotFoundException;
 import com.tavant.sql.SQLQueries;
 
 public class ProcessDAOImpl implements ProcessDao {
@@ -31,47 +32,54 @@ public class ProcessDAOImpl implements ProcessDao {
 	@Autowired
 	private SQLQueries sqlQueries;
 	
-	public boolean updateProcessInstance(String prcId,String status, String comment){
-		ProcessInstanceDetails processInstanceDetails=null;
-		
-		try{
-			processInstanceDetails = (ProcessInstanceDetails) jdbcTemplate.queryForObject(sqlQueries.getProcessInstanceQuery(), new Object[] { prcId }, new ProcessInstanceMapper());
-		} catch (EmptyResultDataAccessException e) {
-		}
-		int resTaskHistory = 0;
-		int resProcessInstance = 0;
-		int resProcessHistory = 0;
-		int resDeleteProcessInstance=0;
-		
-		if(null!=processInstanceDetails && processInstanceDetails.getUsr_id()!=null &&  processInstanceDetails.getUsr_id()>0){
-			resTaskHistory = jdbcTemplate.update(sqlQueries.getTaskCompleteQuery(), new Object[]{processInstanceDetails.getTsk_id(),processInstanceDetails.getApp_id(),processInstanceDetails.getUsr_id(),status,comment,new Timestamp(processInstanceDetails.getTsk_start_dt().getTime()),new Date(),processInstanceDetails.getPrc_id()});
-		
+	@Override
+	public boolean updateProcessInstance(String prcId,String status, String comment) throws ResourceNotFoundException{
+		ProcessInstanceDetails processInstanceDetails = null;
 
-		if(null!=processInstanceDetails.getNext_task_id() && processInstanceDetails.getNext_task_id()>0){
-			TaskDetails taskDetails = (TaskDetails) jdbcTemplate.queryForObject(sqlQueries.getTaskQuery(), new Object[] { processInstanceDetails.getNext_task_id()}, new TaskDetailsMapper());
-			if(null!=taskDetails){
-				resProcessInstance = jdbcTemplate.update(sqlQueries.getProcessInstanceUpdateQuery(), new Object[]{taskDetails.getTsk_id(),null,new Date(),taskDetails.getNext_task_id(), processInstanceDetails.getPri_id()});
+		try {
+			processInstanceDetails = (ProcessInstanceDetails) jdbcTemplate.queryForObject(sqlQueries.getProcessInstanceQuery(), new Object[] { prcId }, new ProcessInstanceMapper());
+
+			int resTaskHistory = 0;
+			int resProcessInstance = 0;
+			int resProcessHistory = 0;
+			int resDeleteProcessInstance = 0;
+
+			if (null != processInstanceDetails && processInstanceDetails.getUsr_id() != null && processInstanceDetails.getUsr_id() > 0) {
+				resTaskHistory = jdbcTemplate.update(sqlQueries.getTaskCompleteQuery(), new Object[] {processInstanceDetails.getTsk_id(), processInstanceDetails.getApp_id(), processInstanceDetails.getUsr_id(),
+										status, comment, new Timestamp(processInstanceDetails.getTsk_start_dt().getTime()), new Date(), processInstanceDetails.getPrc_id() });
+
+				if (null != processInstanceDetails.getNext_task_id() && processInstanceDetails.getNext_task_id() > 0) {
+					TaskDetails taskDetails = (TaskDetails) jdbcTemplate.queryForObject(sqlQueries.getTaskQuery(), new Object[] { processInstanceDetails.getNext_task_id() }, new TaskDetailsMapper());
+					if (null != taskDetails) {
+						resProcessInstance = jdbcTemplate.update(sqlQueries.getProcessInstanceUpdateQuery(), new Object[] { taskDetails.getTsk_id(), null, new Date(), taskDetails.getNext_task_id(), processInstanceDetails.getPri_id() });
+					}
+					return (resTaskHistory == 1 && resProcessInstance == 1) == true ? true : false;
+				} else {
+					resProcessHistory = jdbcTemplate.update(sqlQueries.getProcessCompleteQuery(), new Object[] {processInstanceDetails.getPrc_id(), processInstanceDetails.getApp_id(),
+											status, new Timestamp(processInstanceDetails.getPrc_start_dt().getTime()), new Date() });
+					resDeleteProcessInstance = jdbcTemplate.update(sqlQueries.deleteProcessInstanceQuery(), new Object[] { processInstanceDetails.getPri_id() });
+					return (resTaskHistory == 1 && resProcessHistory == 1 && resDeleteProcessInstance == 1) == true ? true : false;
+				}
 			}
-			return (resTaskHistory==1&&resProcessInstance==1)==true?true:false;
-		}else{
-			resProcessHistory = jdbcTemplate.update(sqlQueries.getProcessCompleteQuery(), new Object[]{processInstanceDetails.getPrc_id(), processInstanceDetails.getApp_id(), status,new Timestamp(processInstanceDetails.getPrc_start_dt().getTime()), new Date() });
-			resDeleteProcessInstance = jdbcTemplate.update(sqlQueries.deleteProcessInstanceQuery(), new Object[]{processInstanceDetails.getPri_id()});
-			return (resTaskHistory==1&&resProcessHistory==1&&resDeleteProcessInstance==1)==true?true:false;
-		}
+		} catch (Exception e) {
+			throw new ResourceNotFoundException();
 		}
 		return false;
 		
 	}
 	
 	@Override
-	public List<ProcessDetails> getProcessList(){
+	public List<ProcessDetails> getProcessList() throws ResourceNotFoundException{
 		List<ProcessDetails> processList = new ArrayList<ProcessDetails>();
-		List<Map> rows = jdbcTemplate.queryForList(sqlQueries.getAllProcessListQuery(), new Object[]{});
-		if(null!=rows && rows.size()>0){
-			
-			for(Map map : rows){
-				processList.add(new ProcessDetails((int)map.get("prc_id"), (String)map.get("prc_name"), null));
+		try {
+			List<Map> rows = jdbcTemplate.queryForList(sqlQueries.getAllProcessListQuery(), new Object[] {});
+			if (null != rows && rows.size() > 0) {
+				for (Map map : rows) {
+					processList.add(new ProcessDetails((int) map.get("prc_id"), (String) map.get("prc_name"), null));
+				}
 			}
+		} catch (Exception e) {
+			throw new ResourceNotFoundException();
 		}
 		return processList;
 	}

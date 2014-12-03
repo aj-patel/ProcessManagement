@@ -20,7 +20,7 @@ import com.tavant.service.TaskService;
 
 @Controller
 @RequestMapping("/process")
-public class ProcessController {
+public class ProcessController extends BaseController{
 	
 	@Autowired
 	private TaskService taskService;
