@@ -18,7 +18,7 @@ import com.tavant.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController extends BaseController{
 	
 	@Autowired
 	private UserService userService ;

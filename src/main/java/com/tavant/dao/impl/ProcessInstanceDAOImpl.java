@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import com.tavant.dao.ProcessInstanceDao;
 import com.tavant.domain.ApplicantDetails;
 import com.tavant.domain.ProcessInstanceDetails;
+import com.tavant.exception.ResourceNotFoundException;
 import com.tavant.sql.SQLQueries;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,38 +35,46 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDao{
 	private boolean isTableNameSet = false;
 	
 	@Override
-	public List<Map> getTasksIdsFromProcessInst(List taskIds) {
-		// TODO Auto-generated method stub
-		
-
-		Map<String, List> param = Collections.singletonMap("taskIds",taskIds);        
-		NamedParameterJdbcTemplate  namedParameterJdbcTemplate = new  
-		NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
-		List<Map> list = namedParameterJdbcTemplate.queryForList(sqlQueries.getTaskListFromProcessInstance(), param);
-
-		return list;
+	public List<Map> getTasksIdsFromProcessInst(List taskIds) throws ResourceNotFoundException{
+		Map<String, List> param = Collections.singletonMap("taskIds",taskIds);
+		try {
+			NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+			List<Map> list = namedParameterJdbcTemplate.queryForList(sqlQueries.getTaskListFromProcessInstance(), param);
+			return list;
+		} catch (Exception e) {
+			throw new ResourceNotFoundException();
+		}
 	}
 	
 	@Override
-	public void updateProcessInstanceWithUserId(int processInstanceId,
-			int userId) {
-		// TODO Auto-generated method stub
-		jdbcTemplate.update(sqlQueries.updateProcessInstance(), new Object[]{userId,new Date(),processInstanceId});
+	public void updateProcessInstanceWithUserId(int processInstanceId, int userId) throws ResourceNotFoundException{
+		try {
+			jdbcTemplate.update(sqlQueries.updateProcessInstance(), new Object[] { userId, new Date(), processInstanceId });
+		} catch (Exception e) {
+			throw new ResourceNotFoundException();
+		}
 	}
 	
 	@Override
-	public int insertApplicantDetails(ApplicantDetails applicantDetails){
+	public int insertApplicantDetails(ApplicantDetails applicantDetails) throws ResourceNotFoundException{
 		setTableName();
-        Map parameters = new HashMap();  
-        parameters.put("app_name", applicantDetails.getApplicantName());
-   
-        Number applicantId = simpleJdbcInsert.executeAndReturnKey(parameters);
-        return applicantId.intValue();
+		Map parameters = new HashMap();
+		parameters.put("app_name", applicantDetails.getApplicantName());
+		try {
+			Number applicantId = simpleJdbcInsert.executeAndReturnKey(parameters);
+			return applicantId.intValue();
+		} catch (Exception e) {
+			throw new ResourceNotFoundException();
+		}
 	}
 	
 	@Override
-	public void createNewProcessInstance(ProcessInstanceDetails processInstance){
-		jdbcTemplate.update(sqlQueries.createProcessInstanceQuery(), new Object[]{processInstance.getApp_id(), processInstance.getTsk_id(), processInstance.getPrc_id(), new Date(), processInstance.getNext_task_id()});
+	public void createNewProcessInstance(ProcessInstanceDetails processInstance) throws ResourceNotFoundException{
+		try {
+			jdbcTemplate.update(sqlQueries.createProcessInstanceQuery(), new Object[]{processInstance.getApp_id(), processInstance.getTsk_id(), processInstance.getPrc_id(), new Date(), processInstance.getNext_task_id()});
+		} catch (Exception e) {
+			throw new ResourceNotFoundException();
+		}
 	}
 	
 	private void setTableName(){
@@ -83,12 +92,14 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDao{
 	}
 	
 	@Override
-	public ProcessInstanceDetails getProcessInstanceForUserId(int userId) {
+	public ProcessInstanceDetails getProcessInstanceForUserId(int userId) throws ResourceNotFoundException{
 		ProcessInstanceDetails processInstanceDetails;
 		try{
 			processInstanceDetails = (ProcessInstanceDetails) jdbcTemplate.queryForObject(sqlQueries.getProcessInstanceForUserId(), new Object[] { userId}, new ProcessInstanceMapper());
 		} catch (EmptyResultDataAccessException e) {
 			processInstanceDetails = new ProcessInstanceDetails();
+		} catch (Exception e) {
+			throw new ResourceNotFoundException();
 		}
 		return processInstanceDetails;
 	}

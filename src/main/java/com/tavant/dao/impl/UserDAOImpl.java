@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.tavant.dao.UserDao;
 import com.tavant.domain.UserDetails;
+import com.tavant.exception.ResourceNotFoundException;
 import com.tavant.sql.SQLQueries;
 
 public class UserDAOImpl implements UserDao{
@@ -20,19 +21,25 @@ public class UserDAOImpl implements UserDao{
 	@Autowired
 	private SQLQueries sqlQueries;
 	
-	public boolean addUser(UserDetails userDetails) {
-		
-		int res = jdbcTemplate.update(sqlQueries.getAddUserQuery(), new Object[]{userDetails.getUserName(),userDetails.getRoleId(),userDetails.getEncPassword(),userDetails.getSalt()});
-		
-		return res==1?true:false;
+	@Override
+	public boolean addUser(UserDetails userDetails) throws ResourceNotFoundException{
+		try{
+			int res = jdbcTemplate.update(sqlQueries.getAddUserQuery(), new Object[]{userDetails.getUserName(),userDetails.getRoleId(),userDetails.getEncPassword(),userDetails.getSalt()});
+			return res==1?true:false;
+		} catch (Exception e) {
+			throw new ResourceNotFoundException();
+		}
 	}
 
-	public UserDetails getUserDetails(String userName) {
+	@Override
+	public UserDetails getUserDetails(String userName) throws ResourceNotFoundException{
 		UserDetails userDetails;
 		try{
 			userDetails = (UserDetails) jdbcTemplate.queryForObject(sqlQueries.getUserDetailsQuery(), new Object[] { userName }, new UserMapper());
 		} catch (EmptyResultDataAccessException e) {
 			userDetails = new UserDetails(null, null, null, null, null, null);
+		}catch (Exception e) {
+			throw new ResourceNotFoundException();
 		}
 		return userDetails;
 	}

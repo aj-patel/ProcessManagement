@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.tavant.dao.RoleDao;
+import com.tavant.exception.ResourceNotFoundException;
 import com.tavant.sql.SQLQueries;
 
 public class RoleDAOImpl implements RoleDao{
@@ -17,9 +18,12 @@ public class RoleDAOImpl implements RoleDao{
 	private JdbcTemplate jdbcTemplate;
 	
 	@Override
-	public List<Integer> getTaskIdsForRoleId(int roleId) {
-		// TODO Auto-generated method stub
-		return (List<Integer>)jdbcTemplate.queryForList(sqlQueries.getTaskIdsForRoleId(), new Object[] { roleId },Integer.class);
+	public List<Integer> getTaskIdsForRoleId(int roleId) throws ResourceNotFoundException{
+		try{
+			return (List<Integer>)jdbcTemplate.queryForList(sqlQueries.getTaskIdsForRoleId(), new Object[] { roleId },Integer.class);
+		} catch(Exception e){
+			throw new ResourceNotFoundException();
+		}
 	}
 	
 }
