@@ -1,13 +1,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/aop         
+     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<context:component-scan base-package="com.tavant.controller" />
+	
+	<aop:aspectj-autoproxy/>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -26,6 +31,7 @@
 		<property name="username" value="ajay" />
 		<property name="password" value="ajay" />
 	</bean>
+
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="datasource"></property>
@@ -66,4 +72,7 @@
 	
 	 <bean id="passwordEncryptionService" class="com.tavant.util.PasswordEncryptionService">
     </bean>
+    
+    <bean id="loggerAspect" class="com.tavant.aop.LoggerAspect"></bean>
+    
 </beans>
